@@ -1,0 +1,67 @@
+{
+  "enemy": {
+    "slug": "vine-shambler",
+    "display_name": "Vine Shambler",
+    "moves": [
+      {
+        "name": "Grasping Vines",
+        "hits": 1,
+        "base_dmg": 8,
+        "asc_dmg": 9,
+        "target": "Player",
+        "notes": "Always followed by Chomp.",
+        "max_consecutive": null,
+        "always_followed_by": "Chomp",
+        "is_opener": false
+      },
+      {
+        "name": "Swipe",
+        "hits": 2,
+        "base_dmg": 6,
+        "asc_dmg": 7,
+        "target": "Player",
+        "notes": "Always followed by Grasping Vines. Always used at the start of combat.",
+        "max_consecutive": null,
+        "always_followed_by": "Grasping Vines",
+        "is_opener": true
+      },
+      {
+        "name": "Chomp",
+        "hits": 1,
+        "base_dmg": 16,
+        "asc_dmg": 18,
+        "target": "Player",
+        "notes": "Always followed by Swipe.",
+        "max_consecutive": null,
+        "always_followed_by": "Swipe",
+        "is_opener": false
+      }
+    ],
+    "pattern_text": "Shows this enemy's repeating move order. Tangled X: Attacks cost 1 additional energy for X turns.",
+    "needs_review": false,
+    "review_reason": ""
+  },
+  "compiled": {
+    "start_move": "Swipe",
+    "transitions": {
+      "Grasping Vines": [
+        [
+          "Chomp",
+          1.0
+        ]
+      ],
+      "Swipe": [
+        [
+          "Grasping Vines",
+          1.0
+        ]
+      ],
+      "Chomp": [
+        [
+          "Swipe",
+          1.0
+        ]
+      ]
+    }
+  }
+}

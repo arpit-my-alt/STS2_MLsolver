@@ -1,0 +1,71 @@
+{
+  "enemy": {
+    "slug": "wriggler",
+    "display_name": "Wriggler",
+    "moves": [
+      {
+        "name": "Nasty Bite",
+        "hits": 1,
+        "base_dmg": 6,
+        "asc_dmg": 7,
+        "target": "Player",
+        "notes": "Always followed by Wriggle. Always used at the start of combat. Wrigglers in slots 1 and 3 start with this move. It is always followed by \"Wriggle\".",
+        "max_consecutive": null,
+        "always_followed_by": "Wriggle",
+        "is_opener": true
+      },
+      {
+        "name": "Wriggle",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "Self",
+        "notes": "Always followed by Nasty Bite. Always used at the start of combat. Wrigglers in slots 2 and 4 start with this move. It adds Infection , gains 2 Strength , then is always followed by \"Nasty Bite\".",
+        "max_consecutive": null,
+        "always_followed_by": "Nasty Bite",
+        "is_opener": true
+      },
+      {
+        "name": "Spawned",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "\u2014",
+        "notes": "Always used at the start of combat. If Wriggler enters as spawned/stunned, it performs this empty action first. Afterward it enters the normal loop based on its slot.",
+        "max_consecutive": null,
+        "always_followed_by": null,
+        "is_opener": true
+      }
+    ],
+    "pattern_text": "Shows this enemy's repeating move order.",
+    "needs_review": true,
+    "review_reason": "No explicit transition found for: ['Spawned']. Defaulted to uniform distribution over remaining moves -- verify against the live diagram (percentages may only render in SVG/canvas, not in scraped text). Multiple moves flagged as combat-openers: ['Nasty Bite', 'Wriggle', 'Spawned'] -- likely position-dependent (e.g. front/middle/back in a pack); needs manual disambiguation."
+  },
+  "compiled": {
+    "start_move": "Nasty Bite",
+    "transitions": {
+      "Nasty Bite": [
+        [
+          "Wriggle",
+          1.0
+        ]
+      ],
+      "Wriggle": [
+        [
+          "Nasty Bite",
+          1.0
+        ]
+      ],
+      "Spawned": [
+        [
+          "Nasty Bite",
+          0.5
+        ],
+        [
+          "Wriggle",
+          0.5
+        ]
+      ]
+    }
+  }
+}

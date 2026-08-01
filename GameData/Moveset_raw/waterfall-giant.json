@@ -1,0 +1,176 @@
+{
+  "enemy": {
+    "slug": "waterfall-giant",
+    "display_name": "Waterfall Giant",
+    "moves": [
+      {
+        "name": "Pressurize",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "Self",
+        "notes": "Always followed by Stomp. Always used at the start of combat.",
+        "max_consecutive": null,
+        "always_followed_by": "Stomp",
+        "is_opener": true
+      },
+      {
+        "name": "Stomp",
+        "hits": 1,
+        "base_dmg": 15,
+        "asc_dmg": 16,
+        "target": "Player",
+        "notes": "Always followed by Ram.",
+        "max_consecutive": null,
+        "always_followed_by": "Ram",
+        "is_opener": false
+      },
+      {
+        "name": "Ram",
+        "hits": 1,
+        "base_dmg": 10,
+        "asc_dmg": 11,
+        "target": "Player",
+        "notes": "Always followed by Siphon.",
+        "max_consecutive": null,
+        "always_followed_by": "Siphon",
+        "is_opener": false
+      },
+      {
+        "name": "Siphon",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "Self",
+        "notes": "Always followed by Pressure Gun. Heals for 15 x player count HP and gains 3 Steam Eruption .",
+        "max_consecutive": null,
+        "always_followed_by": "Pressure Gun",
+        "is_opener": false
+      },
+      {
+        "name": "Pressure Gun",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "Self",
+        "notes": "Always followed by Pressure Up. This move uses dynamic damage: it starts at 20(23) , then future \"Pressure Gun\" damage increases by 5 each time it is used. It also gains 3 Steam Eruption .",
+        "max_consecutive": null,
+        "always_followed_by": "Pressure Up",
+        "is_opener": false
+      },
+      {
+        "name": "Pressure Up",
+        "hits": 1,
+        "base_dmg": 13,
+        "asc_dmg": 14,
+        "target": "Player",
+        "notes": "Always followed by Stomp.",
+        "max_consecutive": null,
+        "always_followed_by": "Stomp",
+        "is_opener": false
+      },
+      {
+        "name": "About to Blow",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "\u2014",
+        "notes": "Always followed by Explode. No transition in the current official state machine leads to this move. It exists in source, but does not trigger in the normal sequence. If Waterfall Giant dies while it has Steam Eruption , combat does not end immediately. It enters this turn, stores the current Steam Eruption amount as explosion damage, and removes that power.",
+        "max_consecutive": null,
+        "always_followed_by": "Explode",
+        "is_opener": false
+      },
+      {
+        "name": "Explode",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "\u2014",
+        "notes": "Deals damage equal to the Steam Eruption amount stored on the previous turn, then Waterfall Giant kills itself and ends the death sequence.",
+        "max_consecutive": null,
+        "always_followed_by": null,
+        "is_opener": false
+      }
+    ],
+    "pattern_text": "Shows this enemy's repeating move order. Steam Eruption X: After dying, wait 1 turn, then attack for X damage.\n* Heal is multiplied by player count",
+    "needs_review": true,
+    "review_reason": "No explicit transition found for: ['Explode']. Defaulted to uniform distribution over remaining moves -- verify against the live diagram (percentages may only render in SVG/canvas, not in scraped text)."
+  },
+  "compiled": {
+    "start_move": "Pressurize",
+    "transitions": {
+      "Pressurize": [
+        [
+          "Stomp",
+          1.0
+        ]
+      ],
+      "Stomp": [
+        [
+          "Ram",
+          1.0
+        ]
+      ],
+      "Ram": [
+        [
+          "Siphon",
+          1.0
+        ]
+      ],
+      "Siphon": [
+        [
+          "Pressure Gun",
+          1.0
+        ]
+      ],
+      "Pressure Gun": [
+        [
+          "Pressure Up",
+          1.0
+        ]
+      ],
+      "Pressure Up": [
+        [
+          "Stomp",
+          1.0
+        ]
+      ],
+      "About to Blow": [
+        [
+          "Explode",
+          1.0
+        ]
+      ],
+      "Explode": [
+        [
+          "Pressurize",
+          0.14285714285714285
+        ],
+        [
+          "Stomp",
+          0.14285714285714285
+        ],
+        [
+          "Ram",
+          0.14285714285714285
+        ],
+        [
+          "Siphon",
+          0.14285714285714285
+        ],
+        [
+          "Pressure Gun",
+          0.14285714285714285
+        ],
+        [
+          "Pressure Up",
+          0.14285714285714285
+        ],
+        [
+          "About to Blow",
+          0.14285714285714285
+        ]
+      ]
+    }
+  }
+}
