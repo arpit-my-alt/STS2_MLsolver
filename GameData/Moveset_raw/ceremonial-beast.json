@@ -1,0 +1,128 @@
+{
+  "enemy": {
+    "slug": "ceremonial-beast",
+    "display_name": "Ceremonial Beast",
+    "moves": [
+      {
+        "name": "Stamp",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "Self",
+        "notes": "Always followed by Plow. Always used at the start of combat.",
+        "max_consecutive": null,
+        "always_followed_by": "Plow",
+        "is_opener": true
+      },
+      {
+        "name": "Plow",
+        "hits": 1,
+        "base_dmg": 18,
+        "asc_dmg": 20,
+        "target": "Player",
+        "notes": "\u2014",
+        "max_consecutive": null,
+        "always_followed_by": null,
+        "is_opener": false
+      },
+      {
+        "name": "Beast Cry",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "\u2014",
+        "notes": "This stun is triggered by the \"Plow\" phase. If Ceremonial Beast takes damage and drops below its \"Plow\" threshold, it becomes stunned; \"Beast Cry\" only happens after the stun ends.",
+        "max_consecutive": null,
+        "always_followed_by": null,
+        "is_opener": false
+      },
+      {
+        "name": "Beast Cry",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "Player",
+        "notes": "Always followed by Stomp.",
+        "max_consecutive": null,
+        "always_followed_by": "Stomp",
+        "is_opener": false
+      },
+      {
+        "name": "Stomp",
+        "hits": 1,
+        "base_dmg": 15,
+        "asc_dmg": 17,
+        "target": "Player",
+        "notes": "Always followed by Crush.",
+        "max_consecutive": null,
+        "always_followed_by": "Crush",
+        "is_opener": false
+      },
+      {
+        "name": "Crush",
+        "hits": 1,
+        "base_dmg": 17,
+        "asc_dmg": 19,
+        "target": "Player",
+        "notes": "Always followed by Beast Cry.",
+        "max_consecutive": null,
+        "always_followed_by": "Beast Cry",
+        "is_opener": false
+      }
+    ],
+    "pattern_text": "Shows this enemy's repeating move order. Plow X: The first time Ceremonial Beast's HP reaches X or below, it becomes stunned and loses all strength . Ringing : You can only play 1 card this turn.",
+    "needs_review": true,
+    "review_reason": "No explicit transition found for: ['Plow']. Defaulted to uniform distribution over remaining moves -- verify against the live diagram (percentages may only render in SVG/canvas, not in scraped text)."
+  },
+  "compiled": {
+    "start_move": "Stamp",
+    "transitions": {
+      "Stamp": [
+        [
+          "Plow",
+          1.0
+        ]
+      ],
+      "Beast Cry": [
+        [
+          "Stomp",
+          1.0
+        ]
+      ],
+      "Stomp": [
+        [
+          "Crush",
+          1.0
+        ]
+      ],
+      "Crush": [
+        [
+          "Beast Cry",
+          1.0
+        ]
+      ],
+      "Plow": [
+        [
+          "Stamp",
+          0.2
+        ],
+        [
+          "Beast Cry",
+          0.2
+        ],
+        [
+          "Beast Cry",
+          0.2
+        ],
+        [
+          "Stomp",
+          0.2
+        ],
+        [
+          "Crush",
+          0.2
+        ]
+      ]
+    }
+  }
+}

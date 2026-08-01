@@ -1,0 +1,50 @@
+{
+  "enemy": {
+    "slug": "living-shield",
+    "display_name": "Living Shield",
+    "moves": [
+      {
+        "name": "Shield Slam",
+        "hits": 1,
+        "base_dmg": 6,
+        "asc_dmg": 6,
+        "target": "Player",
+        "notes": "Always used at the start of combat. While other enemy allies are alive, Living Shield keeps using this move.",
+        "max_consecutive": null,
+        "always_followed_by": null,
+        "is_opener": true
+      },
+      {
+        "name": "Smash",
+        "hits": 1,
+        "base_dmg": 16,
+        "asc_dmg": 18,
+        "target": "Player",
+        "notes": "When no other enemy allies are alive, Living Shield repeats this move and gains 3 Strength after attacking.",
+        "max_consecutive": null,
+        "always_followed_by": null,
+        "is_opener": false
+      }
+    ],
+    "pattern_text": "Shows this enemy's repeating move order. Starts with Rampart 25 Rampart X: Gives Turret Operator X block at the start of the player's turn.",
+    "needs_review": true,
+    "review_reason": "No explicit transition found for: ['Shield Slam', 'Smash']. Defaulted to uniform distribution over remaining moves -- verify against the live diagram (percentages may only render in SVG/canvas, not in scraped text)."
+  },
+  "compiled": {
+    "start_move": "Shield Slam",
+    "transitions": {
+      "Shield Slam": [
+        [
+          "Smash",
+          1.0
+        ]
+      ],
+      "Smash": [
+        [
+          "Shield Slam",
+          1.0
+        ]
+      ]
+    }
+  }
+}

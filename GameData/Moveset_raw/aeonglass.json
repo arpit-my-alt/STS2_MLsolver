@@ -1,0 +1,67 @@
+{
+  "enemy": {
+    "slug": "aeonglass",
+    "display_name": "Aeonglass",
+    "moves": [
+      {
+        "name": "Ebb",
+        "hits": 1,
+        "base_dmg": 22,
+        "asc_dmg": 26,
+        "target": "Player",
+        "notes": "Always followed by Eye Lasers. Always used at the start of combat.",
+        "max_consecutive": null,
+        "always_followed_by": "Eye Lasers",
+        "is_opener": true
+      },
+      {
+        "name": "Eye Lasers",
+        "hits": 2,
+        "base_dmg": 11,
+        "asc_dmg": 12,
+        "target": "Player",
+        "notes": "Always followed by Increasing Intensity.",
+        "max_consecutive": null,
+        "always_followed_by": "Increasing Intensity",
+        "is_opener": false
+      },
+      {
+        "name": "Increasing Intensity",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "\u2014",
+        "notes": "Always followed by Ebb.",
+        "max_consecutive": null,
+        "always_followed_by": "Ebb",
+        "is_opener": false
+      }
+    ],
+    "pattern_text": "Shows this enemy's repeating move order.",
+    "needs_review": false,
+    "review_reason": ""
+  },
+  "compiled": {
+    "start_move": "Ebb",
+    "transitions": {
+      "Ebb": [
+        [
+          "Eye Lasers",
+          1.0
+        ]
+      ],
+      "Eye Lasers": [
+        [
+          "Increasing Intensity",
+          1.0
+        ]
+      ],
+      "Increasing Intensity": [
+        [
+          "Ebb",
+          1.0
+        ]
+      ]
+    }
+  }
+}

@@ -1,0 +1,78 @@
+{
+  "enemy": {
+    "slug": "skulking-colony",
+    "display_name": "Skulking Colony",
+    "moves": [
+      {
+        "name": "Inertia",
+        "hits": 1,
+        "base_dmg": 12,
+        "asc_dmg": 13,
+        "target": "Player",
+        "notes": "Always followed by Zoom. Always used at the start of combat.",
+        "max_consecutive": null,
+        "always_followed_by": "Zoom",
+        "is_opener": true
+      },
+      {
+        "name": "Zoom",
+        "hits": 1,
+        "base_dmg": 14,
+        "asc_dmg": 16,
+        "target": "Player",
+        "notes": "Always followed by Inertia.",
+        "max_consecutive": null,
+        "always_followed_by": "Inertia",
+        "is_opener": false
+      },
+      {
+        "name": "Inertia",
+        "hits": 1,
+        "base_dmg": 9,
+        "asc_dmg": 11,
+        "target": "Player",
+        "notes": "Always followed by Piercing Stabs.",
+        "max_consecutive": null,
+        "always_followed_by": "Piercing Stabs",
+        "is_opener": false
+      },
+      {
+        "name": "Piercing Stabs",
+        "hits": 2,
+        "base_dmg": 7,
+        "asc_dmg": 8,
+        "target": "Player",
+        "notes": "Always followed by Inertia.",
+        "max_consecutive": null,
+        "always_followed_by": "Inertia",
+        "is_opener": false
+      }
+    ],
+    "pattern_text": "Shows this enemy's repeating move order. Starts with Hardened Shell 20 Hardened Shell X: Cannot lose more than X HP per turn.",
+    "needs_review": false,
+    "review_reason": ""
+  },
+  "compiled": {
+    "start_move": "Inertia",
+    "transitions": {
+      "Inertia": [
+        [
+          "Piercing Stabs",
+          1.0
+        ]
+      ],
+      "Zoom": [
+        [
+          "Inertia",
+          1.0
+        ]
+      ],
+      "Piercing Stabs": [
+        [
+          "Inertia",
+          1.0
+        ]
+      ]
+    }
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "enemy": {
+    "slug": "globe-head",
+    "display_name": "Globe Head",
+    "moves": [
+      {
+        "name": "Channel Lightning",
+        "hits": 3,
+        "base_dmg": 6,
+        "asc_dmg": 7,
+        "target": "Player",
+        "notes": "Always followed by Shocking Slap.",
+        "max_consecutive": null,
+        "always_followed_by": "Shocking Slap",
+        "is_opener": false
+      },
+      {
+        "name": "Shocking Slap",
+        "hits": 1,
+        "base_dmg": 13,
+        "asc_dmg": 14,
+        "target": "Player",
+        "notes": "Always followed by Channel Lightning. Always used at the start of combat.",
+        "max_consecutive": null,
+        "always_followed_by": "Channel Lightning",
+        "is_opener": true
+      },
+      {
+        "name": "Shocking Slap",
+        "hits": 1,
+        "base_dmg": 16,
+        "asc_dmg": 17,
+        "target": "Player",
+        "notes": "Always followed by Shocking Slap.",
+        "max_consecutive": null,
+        "always_followed_by": "Shocking Slap",
+        "is_opener": false
+      }
+    ],
+    "pattern_text": "Shows this enemy's repeating move order. Starts with Galvanic 6. Galvanic X: You take X damage when a Power is played.",
+    "needs_review": false,
+    "review_reason": ""
+  },
+  "compiled": {
+    "start_move": "Shocking Slap",
+    "transitions": {
+      "Channel Lightning": [
+        [
+          "Shocking Slap",
+          1.0
+        ]
+      ],
+      "Shocking Slap": [
+        [
+          "Shocking Slap",
+          1.0
+        ]
+      ]
+    }
+  }
+}

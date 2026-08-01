@@ -1,0 +1,67 @@
+{
+  "enemy": {
+    "slug": "corpse-slug",
+    "display_name": "Corpse Slug",
+    "moves": [
+      {
+        "name": "Whip Slap",
+        "hits": 2,
+        "base_dmg": 3,
+        "asc_dmg": 3,
+        "target": "Player",
+        "notes": "Always followed by Glomp. Always used at the start of combat. Corpse Slug has three equally likely opening moves: 1/3 each.",
+        "max_consecutive": null,
+        "always_followed_by": "Glomp",
+        "is_opener": true
+      },
+      {
+        "name": "Glomp",
+        "hits": 1,
+        "base_dmg": 8,
+        "asc_dmg": 9,
+        "target": "Player",
+        "notes": "Always followed by Goop. Always used at the start of combat. Corpse Slug has three equally likely opening moves: 1/3 each.",
+        "max_consecutive": null,
+        "always_followed_by": "Goop",
+        "is_opener": true
+      },
+      {
+        "name": "Goop",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "Player",
+        "notes": "Always followed by Whip Slap. Always used at the start of combat. Corpse Slug has three equally likely opening moves: 1/3 each.",
+        "max_consecutive": null,
+        "always_followed_by": "Whip Slap",
+        "is_opener": true
+      }
+    ],
+    "pattern_text": "Shows this enemy's repeating move order. Starts with Ravenous 4 (5) Ravenous X: When an enemy dies, become stunned and gain X Strength .",
+    "needs_review": true,
+    "review_reason": "Multiple moves flagged as combat-openers: ['Whip Slap', 'Glomp', 'Goop'] -- likely position-dependent (e.g. front/middle/back in a pack); needs manual disambiguation."
+  },
+  "compiled": {
+    "start_move": "Whip Slap",
+    "transitions": {
+      "Whip Slap": [
+        [
+          "Glomp",
+          1.0
+        ]
+      ],
+      "Glomp": [
+        [
+          "Goop",
+          1.0
+        ]
+      ],
+      "Goop": [
+        [
+          "Whip Slap",
+          1.0
+        ]
+      ]
+    }
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "enemy": {
+    "slug": "damp-cultist",
+    "display_name": "Damp Cultist",
+    "moves": [
+      {
+        "name": "Incantation",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "Self",
+        "notes": "Always followed by Dark Strike. Always used at the start of combat.",
+        "max_consecutive": null,
+        "always_followed_by": "Dark Strike",
+        "is_opener": true
+      },
+      {
+        "name": "Dark Strike",
+        "hits": 1,
+        "base_dmg": 1,
+        "asc_dmg": 3,
+        "target": "Player",
+        "notes": "\u2014",
+        "max_consecutive": null,
+        "always_followed_by": null,
+        "is_opener": false
+      }
+    ],
+    "pattern_text": "Shows this enemy's repeating move order.",
+    "needs_review": true,
+    "review_reason": "No explicit transition found for: ['Dark Strike']. Defaulted to uniform distribution over remaining moves -- verify against the live diagram (percentages may only render in SVG/canvas, not in scraped text)."
+  },
+  "compiled": {
+    "start_move": "Incantation",
+    "transitions": {
+      "Incantation": [
+        [
+          "Dark Strike",
+          1.0
+        ]
+      ],
+      "Dark Strike": [
+        [
+          "Incantation",
+          1.0
+        ]
+      ]
+    }
+  }
+}

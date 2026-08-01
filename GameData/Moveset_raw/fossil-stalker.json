@@ -1,0 +1,79 @@
+{
+  "enemy": {
+    "slug": "fossil-stalker",
+    "display_name": "Fossil Stalker",
+    "moves": [
+      {
+        "name": "Tackle",
+        "hits": 1,
+        "base_dmg": 9,
+        "asc_dmg": 11,
+        "target": "Player",
+        "notes": "Can be used at most 2 times in a row.",
+        "max_consecutive": 2,
+        "always_followed_by": null,
+        "is_opener": false
+      },
+      {
+        "name": "Latch",
+        "hits": 1,
+        "base_dmg": 12,
+        "asc_dmg": 14,
+        "target": "Player",
+        "notes": "Can be used at most 2 times in a row. Always used at the start of combat.",
+        "max_consecutive": 2,
+        "always_followed_by": null,
+        "is_opener": true
+      },
+      {
+        "name": "Lash",
+        "hits": 2,
+        "base_dmg": 3,
+        "asc_dmg": 4,
+        "target": "Player",
+        "notes": "Can be used at most 2 times in a row.",
+        "max_consecutive": 2,
+        "always_followed_by": null,
+        "is_opener": false
+      }
+    ],
+    "pattern_text": "Shows this enemy's repeating move order. Starts with Suck 3 Suck X: Whenever Fossil Stalker deals unblocked attack damage, it gains X strength .",
+    "needs_review": true,
+    "review_reason": "No explicit transition found for: ['Tackle', 'Latch', 'Lash']. Defaulted to uniform distribution over remaining moves -- verify against the live diagram (percentages may only render in SVG/canvas, not in scraped text)."
+  },
+  "compiled": {
+    "start_move": "Latch",
+    "transitions": {
+      "Tackle": [
+        [
+          "Latch",
+          0.5
+        ],
+        [
+          "Lash",
+          0.5
+        ]
+      ],
+      "Latch": [
+        [
+          "Tackle",
+          0.5
+        ],
+        [
+          "Lash",
+          0.5
+        ]
+      ],
+      "Lash": [
+        [
+          "Tackle",
+          0.5
+        ],
+        [
+          "Latch",
+          0.5
+        ]
+      ]
+    }
+  }
+}

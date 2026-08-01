@@ -1,0 +1,144 @@
+{
+  "enemy": {
+    "slug": "queen",
+    "display_name": "Queen",
+    "moves": [
+      {
+        "name": "Barrier",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "Player",
+        "notes": "Always followed by You Are Mine. Always used at the start of combat.",
+        "max_consecutive": null,
+        "always_followed_by": "You Are Mine",
+        "is_opener": true
+      },
+      {
+        "name": "You Are Mine",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "Player",
+        "notes": "\u2014",
+        "max_consecutive": null,
+        "always_followed_by": null,
+        "is_opener": false
+      },
+      {
+        "name": "Burn Bright for Me",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "Self",
+        "notes": "This branch is used while Torch Head Amalgam is alive. Queen gains 20 Block and gives 1 Strength to enemy allies other than Queen.",
+        "max_consecutive": null,
+        "always_followed_by": null,
+        "is_opener": false
+      },
+      {
+        "name": "Off with Your Head",
+        "hits": 5,
+        "base_dmg": 3,
+        "asc_dmg": 4,
+        "target": "Player",
+        "notes": "Always followed by Execution. After Torch Head Amalgam dies, Queen enters this branch. If Amalgam dies while Queen is preparing \"Burn Bright for Me\", she immediately switches to \"Enrage\".",
+        "max_consecutive": null,
+        "always_followed_by": "Execution",
+        "is_opener": false
+      },
+      {
+        "name": "Execution",
+        "hits": 1,
+        "base_dmg": 15,
+        "asc_dmg": 18,
+        "target": "Player",
+        "notes": "Always followed by Barrier.",
+        "max_consecutive": null,
+        "always_followed_by": "Barrier",
+        "is_opener": false
+      },
+      {
+        "name": "Barrier",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "Self",
+        "notes": "Always followed by Off with Your Head.",
+        "max_consecutive": null,
+        "always_followed_by": "Off with Your Head",
+        "is_opener": false
+      }
+    ],
+    "pattern_text": "Shows this enemy's repeating move order. Starts with a Torch Head Amalgam in play.\nIf Amalgam dies, and intent is Burn Bright For Me, Enrage instead.",
+    "needs_review": true,
+    "review_reason": "No explicit transition found for: ['You Are Mine', 'Burn Bright for Me']. Defaulted to uniform distribution over remaining moves -- verify against the live diagram (percentages may only render in SVG/canvas, not in scraped text)."
+  },
+  "compiled": {
+    "start_move": "Barrier",
+    "transitions": {
+      "Barrier": [
+        [
+          "Off with Your Head",
+          1.0
+        ]
+      ],
+      "Off with Your Head": [
+        [
+          "Execution",
+          1.0
+        ]
+      ],
+      "Execution": [
+        [
+          "Barrier",
+          1.0
+        ]
+      ],
+      "You Are Mine": [
+        [
+          "Barrier",
+          0.2
+        ],
+        [
+          "Burn Bright for Me",
+          0.2
+        ],
+        [
+          "Off with Your Head",
+          0.2
+        ],
+        [
+          "Execution",
+          0.2
+        ],
+        [
+          "Barrier",
+          0.2
+        ]
+      ],
+      "Burn Bright for Me": [
+        [
+          "Barrier",
+          0.2
+        ],
+        [
+          "You Are Mine",
+          0.2
+        ],
+        [
+          "Off with Your Head",
+          0.2
+        ],
+        [
+          "Execution",
+          0.2
+        ],
+        [
+          "Barrier",
+          0.2
+        ]
+      ]
+    }
+  }
+}

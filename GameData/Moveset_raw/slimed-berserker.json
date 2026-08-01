@@ -1,0 +1,78 @@
+{
+  "enemy": {
+    "slug": "slimed-berserker",
+    "display_name": "Slimed Berserker",
+    "moves": [
+      {
+        "name": "Vomit Ichor",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "Player",
+        "notes": "Always followed by Furious Pummeling. Always used at the start of combat.",
+        "max_consecutive": null,
+        "always_followed_by": "Furious Pummeling",
+        "is_opener": true
+      },
+      {
+        "name": "Leeching Hug",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "Player",
+        "notes": "Always followed by Furious Pummeling.",
+        "max_consecutive": null,
+        "always_followed_by": "Furious Pummeling",
+        "is_opener": false
+      },
+      {
+        "name": "Furious Pummeling",
+        "hits": 1,
+        "base_dmg": 30,
+        "asc_dmg": 33,
+        "target": "Player",
+        "notes": "Always followed by Vomit Ichor.",
+        "max_consecutive": null,
+        "always_followed_by": "Vomit Ichor",
+        "is_opener": false
+      },
+      {
+        "name": "Furious Pummeling",
+        "hits": 4,
+        "base_dmg": 4,
+        "asc_dmg": 5,
+        "target": "Player",
+        "notes": "Always followed by Leeching Hug.",
+        "max_consecutive": null,
+        "always_followed_by": "Leeching Hug",
+        "is_opener": false
+      }
+    ],
+    "pattern_text": "Shows this enemy's repeating move order.",
+    "needs_review": false,
+    "review_reason": ""
+  },
+  "compiled": {
+    "start_move": "Vomit Ichor",
+    "transitions": {
+      "Vomit Ichor": [
+        [
+          "Furious Pummeling",
+          1.0
+        ]
+      ],
+      "Leeching Hug": [
+        [
+          "Furious Pummeling",
+          1.0
+        ]
+      ],
+      "Furious Pummeling": [
+        [
+          "Leeching Hug",
+          1.0
+        ]
+      ]
+    }
+  }
+}

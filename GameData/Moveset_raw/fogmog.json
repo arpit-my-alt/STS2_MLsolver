@@ -1,0 +1,92 @@
+{
+  "enemy": {
+    "slug": "fogmog",
+    "display_name": "Fogmog",
+    "moves": [
+      {
+        "name": "Illusion",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "\u2014",
+        "notes": "Always followed by Swipe. Always used at the start of combat. This move summons Eye With Teeth in the illusion slot.",
+        "max_consecutive": null,
+        "always_followed_by": "Swipe",
+        "is_opener": true
+      },
+      {
+        "name": "Swipe",
+        "hits": 1,
+        "base_dmg": 8,
+        "asc_dmg": 9,
+        "target": "Player",
+        "notes": "\u2014",
+        "max_consecutive": null,
+        "always_followed_by": null,
+        "is_opener": false
+      },
+      {
+        "name": "Follow-up Swipe",
+        "hits": 1,
+        "base_dmg": 8,
+        "asc_dmg": 9,
+        "target": "Player",
+        "notes": "Cannot be used on consecutive turns. Always followed by Headbutt.",
+        "max_consecutive": 1,
+        "always_followed_by": "Headbutt",
+        "is_opener": false
+      },
+      {
+        "name": "Headbutt",
+        "hits": 1,
+        "base_dmg": 14,
+        "asc_dmg": 16,
+        "target": "Player",
+        "notes": "Cannot be used on consecutive turns. Always followed by Swipe.",
+        "max_consecutive": 1,
+        "always_followed_by": "Swipe",
+        "is_opener": false
+      }
+    ],
+    "pattern_text": "Shows this enemy's repeating move order.",
+    "needs_review": true,
+    "review_reason": "No explicit transition found for: ['Swipe']. Defaulted to uniform distribution over remaining moves -- verify against the live diagram (percentages may only render in SVG/canvas, not in scraped text)."
+  },
+  "compiled": {
+    "start_move": "Illusion",
+    "transitions": {
+      "Illusion": [
+        [
+          "Swipe",
+          1.0
+        ]
+      ],
+      "Follow-up Swipe": [
+        [
+          "Headbutt",
+          1.0
+        ]
+      ],
+      "Headbutt": [
+        [
+          "Swipe",
+          1.0
+        ]
+      ],
+      "Swipe": [
+        [
+          "Illusion",
+          0.3333333333333333
+        ],
+        [
+          "Follow-up Swipe",
+          0.3333333333333333
+        ],
+        [
+          "Headbutt",
+          0.3333333333333333
+        ]
+      ]
+    }
+  }
+}

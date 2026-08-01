@@ -1,0 +1,101 @@
+{
+  "enemy": {
+    "slug": "rocket",
+    "display_name": "Rocket",
+    "moves": [
+      {
+        "name": "Targeting Reticle",
+        "hits": 1,
+        "base_dmg": 3,
+        "asc_dmg": 4,
+        "target": "Player",
+        "notes": "Always followed by Precision Beam. Always used at the start of combat.",
+        "max_consecutive": null,
+        "always_followed_by": "Precision Beam",
+        "is_opener": true
+      },
+      {
+        "name": "Precision Beam",
+        "hits": 1,
+        "base_dmg": 18,
+        "asc_dmg": 20,
+        "target": "Player",
+        "notes": "Always followed by Charge Up.",
+        "max_consecutive": null,
+        "always_followed_by": "Charge Up",
+        "is_opener": false
+      },
+      {
+        "name": "Charge Up",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "Self",
+        "notes": "Always followed by Laser.",
+        "max_consecutive": null,
+        "always_followed_by": "Laser",
+        "is_opener": false
+      },
+      {
+        "name": "Laser",
+        "hits": 1,
+        "base_dmg": 31,
+        "asc_dmg": 35,
+        "target": "Player",
+        "notes": "Always followed by Recharge.",
+        "max_consecutive": null,
+        "always_followed_by": "Recharge",
+        "is_opener": false
+      },
+      {
+        "name": "Recharge",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "\u2014",
+        "notes": "Always followed by Targeting Reticle.",
+        "max_consecutive": null,
+        "always_followed_by": "Targeting Reticle",
+        "is_opener": false
+      }
+    ],
+    "pattern_text": "Shows this enemy's repeating move order. Starts with Back Attack and Crab Rage 5.",
+    "needs_review": false,
+    "review_reason": ""
+  },
+  "compiled": {
+    "start_move": "Targeting Reticle",
+    "transitions": {
+      "Targeting Reticle": [
+        [
+          "Precision Beam",
+          1.0
+        ]
+      ],
+      "Precision Beam": [
+        [
+          "Charge Up",
+          1.0
+        ]
+      ],
+      "Charge Up": [
+        [
+          "Laser",
+          1.0
+        ]
+      ],
+      "Laser": [
+        [
+          "Recharge",
+          1.0
+        ]
+      ],
+      "Recharge": [
+        [
+          "Targeting Reticle",
+          1.0
+        ]
+      ]
+    }
+  }
+}

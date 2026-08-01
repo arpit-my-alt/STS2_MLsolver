@@ -1,0 +1,113 @@
+{
+  "enemy": {
+    "slug": "thieving-hopper",
+    "display_name": "Thieving Hopper",
+    "moves": [
+      {
+        "name": "Thievery",
+        "hits": 1,
+        "base_dmg": 17,
+        "asc_dmg": 19,
+        "target": "Player",
+        "notes": "Always followed by Flutter. Always used at the start of combat.",
+        "max_consecutive": null,
+        "always_followed_by": "Flutter",
+        "is_opener": true
+      },
+      {
+        "name": "Nab",
+        "hits": 1,
+        "base_dmg": 14,
+        "asc_dmg": 16,
+        "target": "Player",
+        "notes": "Always followed by Escape.",
+        "max_consecutive": null,
+        "always_followed_by": "Escape",
+        "is_opener": false
+      },
+      {
+        "name": "Hat Trick",
+        "hits": 1,
+        "base_dmg": 21,
+        "asc_dmg": 23,
+        "target": "Player",
+        "notes": "Always followed by Nab.",
+        "max_consecutive": null,
+        "always_followed_by": "Nab",
+        "is_opener": false
+      },
+      {
+        "name": "Flutter",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "Self",
+        "notes": "Always followed by Hat Trick.",
+        "max_consecutive": null,
+        "always_followed_by": "Hat Trick",
+        "is_opener": false
+      },
+      {
+        "name": "Escape",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "\u2014",
+        "notes": "\u2014",
+        "max_consecutive": null,
+        "always_followed_by": null,
+        "is_opener": false
+      }
+    ],
+    "pattern_text": "Shows this enemy's repeating move order. Starts with Escape Artist Escape Artist : Tries to escape the combat after 5 turns. Swipe : Upon killing this enemy , the stolen card is returned. Flutter X: Receives 50% less attack damage. Deal attack damage X times to remove Flutter and stun it.",
+    "needs_review": true,
+    "review_reason": "No explicit transition found for: ['Escape']. Defaulted to uniform distribution over remaining moves -- verify against the live diagram (percentages may only render in SVG/canvas, not in scraped text)."
+  },
+  "compiled": {
+    "start_move": "Thievery",
+    "transitions": {
+      "Thievery": [
+        [
+          "Flutter",
+          1.0
+        ]
+      ],
+      "Nab": [
+        [
+          "Escape",
+          1.0
+        ]
+      ],
+      "Hat Trick": [
+        [
+          "Nab",
+          1.0
+        ]
+      ],
+      "Flutter": [
+        [
+          "Hat Trick",
+          1.0
+        ]
+      ],
+      "Escape": [
+        [
+          "Thievery",
+          0.25
+        ],
+        [
+          "Nab",
+          0.25
+        ],
+        [
+          "Hat Trick",
+          0.25
+        ],
+        [
+          "Flutter",
+          0.25
+        ]
+      ]
+    }
+  }
+}

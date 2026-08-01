@@ -1,0 +1,50 @@
+{
+  "enemy": {
+    "slug": "sneaky-gremlin",
+    "display_name": "Sneaky Gremlin",
+    "moves": [
+      {
+        "name": "Wake Up",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "\u2014",
+        "notes": "Always followed by Tackle. Always used at the start of combat.",
+        "max_consecutive": null,
+        "always_followed_by": "Tackle",
+        "is_opener": true
+      },
+      {
+        "name": "Tackle",
+        "hits": 1,
+        "base_dmg": 9,
+        "asc_dmg": 10,
+        "target": "Player",
+        "notes": "\u2014",
+        "max_consecutive": null,
+        "always_followed_by": null,
+        "is_opener": false
+      }
+    ],
+    "pattern_text": "Shows this enemy's repeating move order. Starts stunned when summoned after killing Gremlin Merc.",
+    "needs_review": true,
+    "review_reason": "No explicit transition found for: ['Tackle']. Defaulted to uniform distribution over remaining moves -- verify against the live diagram (percentages may only render in SVG/canvas, not in scraped text)."
+  },
+  "compiled": {
+    "start_move": "Wake Up",
+    "transitions": {
+      "Wake Up": [
+        [
+          "Tackle",
+          1.0
+        ]
+      ],
+      "Tackle": [
+        [
+          "Wake Up",
+          1.0
+        ]
+      ]
+    }
+  }
+}

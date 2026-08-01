@@ -1,0 +1,67 @@
+{
+  "enemy": {
+    "slug": "louse-progenitor",
+    "display_name": "Louse Progenitor",
+    "moves": [
+      {
+        "name": "Web Cannon",
+        "hits": 1,
+        "base_dmg": 9,
+        "asc_dmg": 10,
+        "target": "Player",
+        "notes": "Always followed by Curl and Grow. Always used at the start of combat.",
+        "max_consecutive": null,
+        "always_followed_by": "Curl and Grow",
+        "is_opener": true
+      },
+      {
+        "name": "Pounce",
+        "hits": 1,
+        "base_dmg": 14,
+        "asc_dmg": 16,
+        "target": "Player",
+        "notes": "Always followed by Web Cannon.",
+        "max_consecutive": null,
+        "always_followed_by": "Web Cannon",
+        "is_opener": false
+      },
+      {
+        "name": "Curl and Grow",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "Self",
+        "notes": "Always followed by Pounce.",
+        "max_consecutive": null,
+        "always_followed_by": "Pounce",
+        "is_opener": false
+      }
+    ],
+    "pattern_text": "Shows this enemy's repeating move order. Starts with Curl Up Curl Up : Gain 14 (18) block upon first being hit.",
+    "needs_review": false,
+    "review_reason": ""
+  },
+  "compiled": {
+    "start_move": "Web Cannon",
+    "transitions": {
+      "Web Cannon": [
+        [
+          "Curl and Grow",
+          1.0
+        ]
+      ],
+      "Pounce": [
+        [
+          "Web Cannon",
+          1.0
+        ]
+      ],
+      "Curl and Grow": [
+        [
+          "Pounce",
+          1.0
+        ]
+      ]
+    }
+  }
+}

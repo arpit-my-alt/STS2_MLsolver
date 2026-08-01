@@ -1,0 +1,78 @@
+{
+  "enemy": {
+    "slug": "tunneler",
+    "display_name": "Tunneler",
+    "moves": [
+      {
+        "name": "Bite",
+        "hits": 1,
+        "base_dmg": 13,
+        "asc_dmg": 15,
+        "target": "Player",
+        "notes": "Always followed by Burrow. Always used at the start of combat.",
+        "max_consecutive": null,
+        "always_followed_by": "Burrow",
+        "is_opener": true
+      },
+      {
+        "name": "Burrow",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "Self",
+        "notes": "Always followed by Attack from Below.",
+        "max_consecutive": null,
+        "always_followed_by": "Attack from Below",
+        "is_opener": false
+      },
+      {
+        "name": "Attack from Below",
+        "hits": 1,
+        "base_dmg": 23,
+        "asc_dmg": 26,
+        "target": "Player",
+        "notes": "\u2014",
+        "max_consecutive": null,
+        "always_followed_by": null,
+        "is_opener": false
+      },
+      {
+        "name": "Attack from Below",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "\u2014",
+        "notes": "Always followed by Bite. No transition in the current official state machine leads to this move. It exists in source, but does not trigger in the normal sequence.",
+        "max_consecutive": null,
+        "always_followed_by": "Bite",
+        "is_opener": false
+      }
+    ],
+    "pattern_text": "Shows this enemy's repeating move order. Burrowed : Block is not removed at the start of Tunneler's turn. Becomes stunned if all block is removed.",
+    "needs_review": false,
+    "review_reason": ""
+  },
+  "compiled": {
+    "start_move": "Bite",
+    "transitions": {
+      "Bite": [
+        [
+          "Burrow",
+          1.0
+        ]
+      ],
+      "Burrow": [
+        [
+          "Attack from Below",
+          1.0
+        ]
+      ],
+      "Attack from Below": [
+        [
+          "Bite",
+          1.0
+        ]
+      ]
+    }
+  }
+}

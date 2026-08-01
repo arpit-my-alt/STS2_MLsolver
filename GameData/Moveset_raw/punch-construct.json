@@ -1,0 +1,67 @@
+{
+  "enemy": {
+    "slug": "punch-construct",
+    "display_name": "Punch Construct",
+    "moves": [
+      {
+        "name": "READY",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "Self",
+        "notes": "Always followed by Strong Punch. Always used at the start of combat.",
+        "max_consecutive": null,
+        "always_followed_by": "Strong Punch",
+        "is_opener": true
+      },
+      {
+        "name": "Strong Punch",
+        "hits": 1,
+        "base_dmg": 14,
+        "asc_dmg": 16,
+        "target": "Player",
+        "notes": "Always followed by Fast Punch. Always used at the start of combat.",
+        "max_consecutive": null,
+        "always_followed_by": "Fast Punch",
+        "is_opener": true
+      },
+      {
+        "name": "Fast Punch",
+        "hits": 2,
+        "base_dmg": 5,
+        "asc_dmg": 6,
+        "target": "Player",
+        "notes": "Always followed by READY.",
+        "max_consecutive": null,
+        "always_followed_by": "READY",
+        "is_opener": false
+      }
+    ],
+    "pattern_text": "Shows this enemy's repeating move order. Starts with Artifact 1.",
+    "needs_review": true,
+    "review_reason": "Multiple moves flagged as combat-openers: ['READY', 'Strong Punch'] -- likely position-dependent (e.g. front/middle/back in a pack); needs manual disambiguation."
+  },
+  "compiled": {
+    "start_move": "READY",
+    "transitions": {
+      "READY": [
+        [
+          "Strong Punch",
+          1.0
+        ]
+      ],
+      "Strong Punch": [
+        [
+          "Fast Punch",
+          1.0
+        ]
+      ],
+      "Fast Punch": [
+        [
+          "READY",
+          1.0
+        ]
+      ]
+    }
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "enemy": {
+    "slug": "leaf-slime-m",
+    "display_name": "Leaf Slime (M)",
+    "moves": [
+      {
+        "name": "Clump Shot",
+        "hits": 1,
+        "base_dmg": 8,
+        "asc_dmg": 9,
+        "target": "Player",
+        "notes": "Always followed by Sticky Shot.",
+        "max_consecutive": null,
+        "always_followed_by": "Sticky Shot",
+        "is_opener": false
+      },
+      {
+        "name": "Sticky Shot",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "Player",
+        "notes": "Always followed by Clump Shot. Always used at the start of combat.",
+        "max_consecutive": null,
+        "always_followed_by": "Clump Shot",
+        "is_opener": true
+      }
+    ],
+    "pattern_text": "Shows this enemy's repeating move order.",
+    "needs_review": false,
+    "review_reason": ""
+  },
+  "compiled": {
+    "start_move": "Sticky Shot",
+    "transitions": {
+      "Clump Shot": [
+        [
+          "Sticky Shot",
+          1.0
+        ]
+      ],
+      "Sticky Shot": [
+        [
+          "Clump Shot",
+          1.0
+        ]
+      ]
+    }
+  }
+}

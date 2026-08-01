@@ -1,0 +1,84 @@
+{
+  "enemy": {
+    "slug": "phantasmal-gardener",
+    "display_name": "Phantasmal Gardener",
+    "moves": [
+      {
+        "name": "Bite",
+        "hits": 1,
+        "base_dmg": 5,
+        "asc_dmg": 5,
+        "target": "Player",
+        "notes": "Always followed by Lash. Always used at the start of combat.",
+        "max_consecutive": null,
+        "always_followed_by": "Lash",
+        "is_opener": true
+      },
+      {
+        "name": "Lash",
+        "hits": 1,
+        "base_dmg": 7,
+        "asc_dmg": 7,
+        "target": "Player",
+        "notes": "Always followed by Flail. Always used at the start of combat.",
+        "max_consecutive": null,
+        "always_followed_by": "Flail",
+        "is_opener": true
+      },
+      {
+        "name": "Flail",
+        "hits": 3,
+        "base_dmg": 1,
+        "asc_dmg": 1,
+        "target": "Player",
+        "notes": "Always followed by Enlarge. Always used at the start of combat.",
+        "max_consecutive": null,
+        "always_followed_by": "Enlarge",
+        "is_opener": true
+      },
+      {
+        "name": "Enlarge",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "Self",
+        "notes": "Always followed by Bite. Always used at the start of combat.",
+        "max_consecutive": null,
+        "always_followed_by": "Bite",
+        "is_opener": true
+      }
+    ],
+    "pattern_text": "Shows this enemy's repeating move order. Starts with Skittish 6 (7) Skittish X: First time hit each turn gain X block .",
+    "needs_review": true,
+    "review_reason": "Multiple moves flagged as combat-openers: ['Bite', 'Lash', 'Flail', 'Enlarge'] -- likely position-dependent (e.g. front/middle/back in a pack); needs manual disambiguation."
+  },
+  "compiled": {
+    "start_move": "Bite",
+    "transitions": {
+      "Bite": [
+        [
+          "Lash",
+          1.0
+        ]
+      ],
+      "Lash": [
+        [
+          "Flail",
+          1.0
+        ]
+      ],
+      "Flail": [
+        [
+          "Enlarge",
+          1.0
+        ]
+      ],
+      "Enlarge": [
+        [
+          "Bite",
+          1.0
+        ]
+      ]
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "enemy": {
+    "slug": "guardbot",
+    "display_name": "Guardbot",
+    "moves": [
+      {
+        "name": "Guard",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "Self",
+        "notes": "Always used at the start of combat. The 15 Block is granted to Fabricator enemies in play, not to Guardbot itself.",
+        "max_consecutive": null,
+        "always_followed_by": null,
+        "is_opener": true
+      }
+    ],
+    "pattern_text": "Shows this enemy's repeating move order.",
+    "needs_review": true,
+    "review_reason": "No explicit transition found for: ['Guard']. Defaulted to uniform distribution over remaining moves -- verify against the live diagram (percentages may only render in SVG/canvas, not in scraped text)."
+  },
+  "compiled": {
+    "start_move": "Guard",
+    "transitions": {
+      "Guard": [
+        [
+          "Guard",
+          1.0
+        ]
+      ]
+    }
+  }
+}

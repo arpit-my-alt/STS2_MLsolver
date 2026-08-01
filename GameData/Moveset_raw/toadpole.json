@@ -1,0 +1,67 @@
+{
+  "enemy": {
+    "slug": "toadpole",
+    "display_name": "Toadpole",
+    "moves": [
+      {
+        "name": "Spike Spit",
+        "hits": 3,
+        "base_dmg": 3,
+        "asc_dmg": 4,
+        "target": "Player",
+        "notes": "Always followed by Whirl. This move first loses 2 Thorns , then attacks three times. It is always followed by \"Whirl\".",
+        "max_consecutive": null,
+        "always_followed_by": "Whirl",
+        "is_opener": false
+      },
+      {
+        "name": "Whirl",
+        "hits": 1,
+        "base_dmg": 7,
+        "asc_dmg": 8,
+        "target": "Player",
+        "notes": "Always followed by Spiken. Always used at the start of combat. If Toadpole is not in front, it starts with this move. In the normal loop, this follows \"Spike Spit\".",
+        "max_consecutive": null,
+        "always_followed_by": "Spiken",
+        "is_opener": true
+      },
+      {
+        "name": "Spiken",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "Self",
+        "notes": "Always followed by Spike Spit. Always used at the start of combat. If Toadpole is in front, it starts with this move. This gains 2 Thorns , then is always followed by \"Spike Spit\".",
+        "max_consecutive": null,
+        "always_followed_by": "Spike Spit",
+        "is_opener": true
+      }
+    ],
+    "pattern_text": "Shows this enemy's repeating move order.",
+    "needs_review": true,
+    "review_reason": "Multiple moves flagged as combat-openers: ['Whirl', 'Spiken'] -- likely position-dependent (e.g. front/middle/back in a pack); needs manual disambiguation."
+  },
+  "compiled": {
+    "start_move": "Whirl",
+    "transitions": {
+      "Spike Spit": [
+        [
+          "Whirl",
+          1.0
+        ]
+      ],
+      "Whirl": [
+        [
+          "Spiken",
+          1.0
+        ]
+      ],
+      "Spiken": [
+        [
+          "Spike Spit",
+          1.0
+        ]
+      ]
+    }
+  }
+}

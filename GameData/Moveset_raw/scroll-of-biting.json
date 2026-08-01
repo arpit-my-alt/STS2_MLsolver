@@ -1,0 +1,71 @@
+{
+  "enemy": {
+    "slug": "scroll-of-biting",
+    "display_name": "Scroll of Biting",
+    "moves": [
+      {
+        "name": "Chomp",
+        "hits": 1,
+        "base_dmg": 14,
+        "asc_dmg": 16,
+        "target": "Player",
+        "notes": "Cannot be used on consecutive turns. Always followed by More Teeth.",
+        "max_consecutive": 1,
+        "always_followed_by": "More Teeth",
+        "is_opener": false
+      },
+      {
+        "name": "Chew",
+        "hits": 2,
+        "base_dmg": 5,
+        "asc_dmg": 6,
+        "target": "Player",
+        "notes": "Can be used at most 2 times in a row.",
+        "max_consecutive": 2,
+        "always_followed_by": null,
+        "is_opener": false
+      },
+      {
+        "name": "More Teeth",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "Self",
+        "notes": "Always followed by Chew.",
+        "max_consecutive": null,
+        "always_followed_by": "Chew",
+        "is_opener": false
+      }
+    ],
+    "pattern_text": "Shows this enemy's repeating move order. Starts with Paper Cuts 2 Paper Cuts X: Whenever you take unblocked attack damage from this enemy , lose X Max HP.",
+    "needs_review": true,
+    "review_reason": "No explicit transition found for: ['Chew']. Defaulted to uniform distribution over remaining moves -- verify against the live diagram (percentages may only render in SVG/canvas, not in scraped text)."
+  },
+  "compiled": {
+    "start_move": "Chomp",
+    "transitions": {
+      "Chomp": [
+        [
+          "More Teeth",
+          1.0
+        ]
+      ],
+      "More Teeth": [
+        [
+          "Chew",
+          1.0
+        ]
+      ],
+      "Chew": [
+        [
+          "Chomp",
+          0.5
+        ],
+        [
+          "More Teeth",
+          0.5
+        ]
+      ]
+    }
+  }
+}

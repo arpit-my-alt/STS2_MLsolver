@@ -1,0 +1,50 @@
+{
+  "enemy": {
+    "slug": "leaf-slime-s",
+    "display_name": "Leaf Slime (S)",
+    "moves": [
+      {
+        "name": "Tackle",
+        "hits": 1,
+        "base_dmg": 3,
+        "asc_dmg": 4,
+        "target": "Player",
+        "notes": "Cannot be used on consecutive turns. Always used at the start of combat.",
+        "max_consecutive": 1,
+        "always_followed_by": null,
+        "is_opener": true
+      },
+      {
+        "name": "Goop",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "Player",
+        "notes": "Cannot be used on consecutive turns. Always used at the start of combat.",
+        "max_consecutive": 1,
+        "always_followed_by": null,
+        "is_opener": true
+      }
+    ],
+    "pattern_text": "Shows this enemy's repeating move order.",
+    "needs_review": true,
+    "review_reason": "No explicit transition found for: ['Tackle', 'Goop']. Defaulted to uniform distribution over remaining moves -- verify against the live diagram (percentages may only render in SVG/canvas, not in scraped text). Multiple moves flagged as combat-openers: ['Tackle', 'Goop'] -- likely position-dependent (e.g. front/middle/back in a pack); needs manual disambiguation."
+  },
+  "compiled": {
+    "start_move": "Tackle",
+    "transitions": {
+      "Tackle": [
+        [
+          "Goop",
+          1.0
+        ]
+      ],
+      "Goop": [
+        [
+          "Tackle",
+          1.0
+        ]
+      ]
+    }
+  }
+}

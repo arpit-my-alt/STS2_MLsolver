@@ -1,0 +1,84 @@
+{
+  "enemy": {
+    "slug": "vantom",
+    "display_name": "Vantom",
+    "moves": [
+      {
+        "name": "Ink Blot",
+        "hits": 1,
+        "base_dmg": 7,
+        "asc_dmg": 8,
+        "target": "Player",
+        "notes": "Always followed by Inky Lance. Always used at the start of combat.",
+        "max_consecutive": null,
+        "always_followed_by": "Inky Lance",
+        "is_opener": true
+      },
+      {
+        "name": "Inky Lance",
+        "hits": 2,
+        "base_dmg": 6,
+        "asc_dmg": 7,
+        "target": "Player",
+        "notes": "Always followed by Dismember.",
+        "max_consecutive": null,
+        "always_followed_by": "Dismember",
+        "is_opener": false
+      },
+      {
+        "name": "Dismember",
+        "hits": 1,
+        "base_dmg": 26,
+        "asc_dmg": 30,
+        "target": "Player",
+        "notes": "Always followed by Prepare.",
+        "max_consecutive": null,
+        "always_followed_by": "Prepare",
+        "is_opener": false
+      },
+      {
+        "name": "Prepare",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "Self",
+        "notes": "Always followed by Ink Blot.",
+        "max_consecutive": null,
+        "always_followed_by": "Ink Blot",
+        "is_opener": false
+      }
+    ],
+    "pattern_text": "Shows this enemy's repeating move order. Starts with Slippery 9 Slippery X: The next X times this loses HP, only lose 1.",
+    "needs_review": false,
+    "review_reason": ""
+  },
+  "compiled": {
+    "start_move": "Ink Blot",
+    "transitions": {
+      "Ink Blot": [
+        [
+          "Inky Lance",
+          1.0
+        ]
+      ],
+      "Inky Lance": [
+        [
+          "Dismember",
+          1.0
+        ]
+      ],
+      "Dismember": [
+        [
+          "Prepare",
+          1.0
+        ]
+      ],
+      "Prepare": [
+        [
+          "Ink Blot",
+          1.0
+        ]
+      ]
+    }
+  }
+}

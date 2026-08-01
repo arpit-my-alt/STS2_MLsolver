@@ -1,0 +1,92 @@
+{
+  "enemy": {
+    "slug": "knowledge-demon",
+    "display_name": "Knowledge Demon",
+    "moves": [
+      {
+        "name": "Curse of Knowledge",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "\u2014",
+        "notes": "Always followed by Slap. Always used at the start of combat. Only used while the \"Curse of Knowledge\" counter is below 3 . Each use increases the counter by + 1 and offers different curse choices on the 1st/2nd/3rd use.",
+        "max_consecutive": null,
+        "always_followed_by": "Slap",
+        "is_opener": true
+      },
+      {
+        "name": "Slap",
+        "hits": 1,
+        "base_dmg": 17,
+        "asc_dmg": 18,
+        "target": "Player",
+        "notes": "Always followed by Knowledge Overwhelming. After \"Curse of Knowledge\" has been used 3 times, the branch no longer returns to the curse and starts the loop from this move instead.",
+        "max_consecutive": null,
+        "always_followed_by": "Knowledge Overwhelming",
+        "is_opener": false
+      },
+      {
+        "name": "Knowledge Overwhelming",
+        "hits": 3,
+        "base_dmg": 8,
+        "asc_dmg": 9,
+        "target": "Player",
+        "notes": "Always followed by Ponder.",
+        "max_consecutive": null,
+        "always_followed_by": "Ponder",
+        "is_opener": false
+      },
+      {
+        "name": "Ponder",
+        "hits": 1,
+        "base_dmg": 11,
+        "asc_dmg": 13,
+        "target": "Player",
+        "notes": "This move also heals Knowledge Demon for 30 x player count HP and grants 2(3) Strength .",
+        "max_consecutive": null,
+        "always_followed_by": null,
+        "is_opener": false
+      }
+    ],
+    "pattern_text": "Shows this enemy's repeating move order. Disintegration X: Take X damage at the end of your turn.\n(Stacks additively if selected multiple times) Mind Rot : Draw 1 fewer card at the start of your turn Sloth : You cannot play more than 3 cards per turn Waste Away : Gain 1 less energy at the start of your turn\n* Heal is multiplied by player count",
+    "needs_review": true,
+    "review_reason": "No explicit transition found for: ['Ponder']. Defaulted to uniform distribution over remaining moves -- verify against the live diagram (percentages may only render in SVG/canvas, not in scraped text)."
+  },
+  "compiled": {
+    "start_move": "Curse of Knowledge",
+    "transitions": {
+      "Curse of Knowledge": [
+        [
+          "Slap",
+          1.0
+        ]
+      ],
+      "Slap": [
+        [
+          "Knowledge Overwhelming",
+          1.0
+        ]
+      ],
+      "Knowledge Overwhelming": [
+        [
+          "Ponder",
+          1.0
+        ]
+      ],
+      "Ponder": [
+        [
+          "Curse of Knowledge",
+          0.3333333333333333
+        ],
+        [
+          "Slap",
+          0.3333333333333333
+        ],
+        [
+          "Knowledge Overwhelming",
+          0.3333333333333333
+        ]
+      ]
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "enemy": {
+    "slug": "twig-slime-s",
+    "display_name": "Twig Slime (S)",
+    "moves": [
+      {
+        "name": "Tackle",
+        "hits": 1,
+        "base_dmg": 4,
+        "asc_dmg": 5,
+        "target": "Player",
+        "notes": "Always used at the start of combat.",
+        "max_consecutive": null,
+        "always_followed_by": null,
+        "is_opener": true
+      }
+    ],
+    "pattern_text": "Shows this enemy's repeating move order.",
+    "needs_review": true,
+    "review_reason": "No explicit transition found for: ['Tackle']. Defaulted to uniform distribution over remaining moves -- verify against the live diagram (percentages may only render in SVG/canvas, not in scraped text)."
+  },
+  "compiled": {
+    "start_move": "Tackle",
+    "transitions": {
+      "Tackle": [
+        [
+          "Tackle",
+          1.0
+        ]
+      ]
+    }
+  }
+}

@@ -1,0 +1,78 @@
+{
+  "enemy": {
+    "slug": "cubex-construct",
+    "display_name": "Cubex Construct",
+    "moves": [
+      {
+        "name": "Charge Up",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "Self",
+        "notes": "Always followed by Repeater Blast. Always used at the start of combat.",
+        "max_consecutive": null,
+        "always_followed_by": "Repeater Blast",
+        "is_opener": true
+      },
+      {
+        "name": "Repeater Blast",
+        "hits": 1,
+        "base_dmg": 7,
+        "asc_dmg": 8,
+        "target": "Player",
+        "notes": "Always followed by Charge Up.",
+        "max_consecutive": null,
+        "always_followed_by": "Charge Up",
+        "is_opener": false
+      },
+      {
+        "name": "Charge Up",
+        "hits": 1,
+        "base_dmg": 7,
+        "asc_dmg": 8,
+        "target": "Player",
+        "notes": "Always followed by Expel.",
+        "max_consecutive": null,
+        "always_followed_by": "Expel",
+        "is_opener": false
+      },
+      {
+        "name": "Expel",
+        "hits": 2,
+        "base_dmg": 5,
+        "asc_dmg": 6,
+        "target": "Player",
+        "notes": "Always followed by Repeater Blast.",
+        "max_consecutive": null,
+        "always_followed_by": "Repeater Blast",
+        "is_opener": false
+      }
+    ],
+    "pattern_text": "Shows this enemy's repeating move order. Starts with 13 Block and Artifact 1.",
+    "needs_review": false,
+    "review_reason": ""
+  },
+  "compiled": {
+    "start_move": "Charge Up",
+    "transitions": {
+      "Charge Up": [
+        [
+          "Expel",
+          1.0
+        ]
+      ],
+      "Repeater Blast": [
+        [
+          "Charge Up",
+          1.0
+        ]
+      ],
+      "Expel": [
+        [
+          "Repeater Blast",
+          1.0
+        ]
+      ]
+    }
+  }
+}

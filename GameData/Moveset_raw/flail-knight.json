@@ -1,0 +1,79 @@
+{
+  "enemy": {
+    "slug": "flail-knight",
+    "display_name": "Flail Knight",
+    "moves": [
+      {
+        "name": "War Chant",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "Self",
+        "notes": "Cannot be used on consecutive turns.",
+        "max_consecutive": 1,
+        "always_followed_by": null,
+        "is_opener": false
+      },
+      {
+        "name": "Flail",
+        "hits": 2,
+        "base_dmg": 9,
+        "asc_dmg": 10,
+        "target": "Player",
+        "notes": "Can be used at most 2 times in a row.",
+        "max_consecutive": 2,
+        "always_followed_by": null,
+        "is_opener": false
+      },
+      {
+        "name": "Ram",
+        "hits": 1,
+        "base_dmg": 15,
+        "asc_dmg": 17,
+        "target": "Player",
+        "notes": "Can be used at most 2 times in a row. Always used at the start of combat.",
+        "max_consecutive": 2,
+        "always_followed_by": null,
+        "is_opener": true
+      }
+    ],
+    "pattern_text": "Shows this enemy's repeating move order.",
+    "needs_review": true,
+    "review_reason": "No explicit transition found for: ['War Chant', 'Flail', 'Ram']. Defaulted to uniform distribution over remaining moves -- verify against the live diagram (percentages may only render in SVG/canvas, not in scraped text)."
+  },
+  "compiled": {
+    "start_move": "Ram",
+    "transitions": {
+      "War Chant": [
+        [
+          "Flail",
+          0.5
+        ],
+        [
+          "Ram",
+          0.5
+        ]
+      ],
+      "Flail": [
+        [
+          "War Chant",
+          0.5
+        ],
+        [
+          "Ram",
+          0.5
+        ]
+      ],
+      "Ram": [
+        [
+          "War Chant",
+          0.5
+        ],
+        [
+          "Flail",
+          0.5
+        ]
+      ]
+    }
+  }
+}

@@ -1,0 +1,95 @@
+{
+  "enemy": {
+    "slug": "the-insatiable",
+    "display_name": "The Insatiable",
+    "moves": [
+      {
+        "name": "Liquify Ground",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "\u2014",
+        "notes": "Always followed by Thrash. Always used at the start of combat. This move applies 4 Sandpit to the player and adds 6 Frantic Escape : 3 randomly into the draw pile and 3 into the discard pile.",
+        "max_consecutive": null,
+        "always_followed_by": "Thrash",
+        "is_opener": true
+      },
+      {
+        "name": "Thrash",
+        "hits": 2,
+        "base_dmg": 8,
+        "asc_dmg": 9,
+        "target": "Player",
+        "notes": "Always followed by Lunging Bite.",
+        "max_consecutive": null,
+        "always_followed_by": "Lunging Bite",
+        "is_opener": false
+      },
+      {
+        "name": "Thrash",
+        "hits": 2,
+        "base_dmg": 8,
+        "asc_dmg": 9,
+        "target": "Player",
+        "notes": "Always followed by Thrash.",
+        "max_consecutive": null,
+        "always_followed_by": "Thrash",
+        "is_opener": false
+      },
+      {
+        "name": "Lunging Bite",
+        "hits": 1,
+        "base_dmg": 28,
+        "asc_dmg": 31,
+        "target": "Player",
+        "notes": "Always followed by Salivate.",
+        "max_consecutive": null,
+        "always_followed_by": "Salivate",
+        "is_opener": false
+      },
+      {
+        "name": "Salivate",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "Self",
+        "notes": "Always followed by Thrash.",
+        "max_consecutive": null,
+        "always_followed_by": "Thrash",
+        "is_opener": false
+      }
+    ],
+    "pattern_text": "Shows this enemy's repeating move order. Sandpit X: In X turns, instantly die.\nFrantic Escape: 1 cost status, increase card cost and Sandpit by 1.",
+    "needs_review": false,
+    "review_reason": ""
+  },
+  "compiled": {
+    "start_move": "Liquify Ground",
+    "transitions": {
+      "Liquify Ground": [
+        [
+          "Thrash",
+          1.0
+        ]
+      ],
+      "Thrash": [
+        [
+          "Thrash",
+          1.0
+        ]
+      ],
+      "Lunging Bite": [
+        [
+          "Salivate",
+          1.0
+        ]
+      ],
+      "Salivate": [
+        [
+          "Thrash",
+          1.0
+        ]
+      ]
+    }
+  }
+}

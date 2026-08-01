@@ -1,0 +1,50 @@
+{
+  "enemy": {
+    "slug": "devoted-sculptor",
+    "display_name": "Devoted Sculptor",
+    "moves": [
+      {
+        "name": "Forbidden Incantation",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "Self",
+        "notes": "Always followed by Savage. Always used at the start of combat.",
+        "max_consecutive": null,
+        "always_followed_by": "Savage",
+        "is_opener": true
+      },
+      {
+        "name": "Savage",
+        "hits": 1,
+        "base_dmg": 12,
+        "asc_dmg": 15,
+        "target": "Player",
+        "notes": "\u2014",
+        "max_consecutive": null,
+        "always_followed_by": null,
+        "is_opener": false
+      }
+    ],
+    "pattern_text": "Shows this enemy's repeating move order.",
+    "needs_review": true,
+    "review_reason": "No explicit transition found for: ['Savage']. Defaulted to uniform distribution over remaining moves -- verify against the live diagram (percentages may only render in SVG/canvas, not in scraped text)."
+  },
+  "compiled": {
+    "start_move": "Forbidden Incantation",
+    "transitions": {
+      "Forbidden Incantation": [
+        [
+          "Savage",
+          1.0
+        ]
+      ],
+      "Savage": [
+        [
+          "Forbidden Incantation",
+          1.0
+        ]
+      ]
+    }
+  }
+}

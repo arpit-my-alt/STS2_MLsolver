@@ -1,0 +1,50 @@
+{
+  "enemy": {
+    "slug": "brute-ruby-raider",
+    "display_name": "Brute Raider",
+    "moves": [
+      {
+        "name": "Beat",
+        "hits": 1,
+        "base_dmg": 7,
+        "asc_dmg": 8,
+        "target": "Player",
+        "notes": "Always followed by Roar. Always used at the start of combat.",
+        "max_consecutive": null,
+        "always_followed_by": "Roar",
+        "is_opener": true
+      },
+      {
+        "name": "Roar",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "Self",
+        "notes": "Always followed by Beat.",
+        "max_consecutive": null,
+        "always_followed_by": "Beat",
+        "is_opener": false
+      }
+    ],
+    "pattern_text": "Shows this enemy's repeating move order.",
+    "needs_review": false,
+    "review_reason": ""
+  },
+  "compiled": {
+    "start_move": "Beat",
+    "transitions": {
+      "Beat": [
+        [
+          "Roar",
+          1.0
+        ]
+      ],
+      "Roar": [
+        [
+          "Beat",
+          1.0
+        ]
+      ]
+    }
+  }
+}

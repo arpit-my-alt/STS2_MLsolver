@@ -1,0 +1,92 @@
+{
+  "enemy": {
+    "slug": "frog-knight",
+    "display_name": "Frog Knight",
+    "moves": [
+      {
+        "name": "For the Queen",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "Self",
+        "notes": "\u2014",
+        "max_consecutive": null,
+        "always_followed_by": null,
+        "is_opener": false
+      },
+      {
+        "name": "Strike Down Evil",
+        "hits": 1,
+        "base_dmg": 21,
+        "asc_dmg": 23,
+        "target": "Player",
+        "notes": "Always followed by For the Queen.",
+        "max_consecutive": null,
+        "always_followed_by": "For the Queen",
+        "is_opener": false
+      },
+      {
+        "name": "Tongue Lash",
+        "hits": 1,
+        "base_dmg": 13,
+        "asc_dmg": 14,
+        "target": "Player",
+        "notes": "Always followed by Strike Down Evil. Always used at the start of combat. If Frog Knight is already charged or still at/above half HP, this branch replaces \"Beetle Charge\".",
+        "max_consecutive": null,
+        "always_followed_by": "Strike Down Evil",
+        "is_opener": true
+      },
+      {
+        "name": "Beetle Charge",
+        "hits": 1,
+        "base_dmg": 35,
+        "asc_dmg": 40,
+        "target": "Player",
+        "notes": "Always followed by Tongue Lash. Only triggers while Frog Knight is below half HP and has not used \"Beetle Charge\" yet. After using it, Frog Knight is marked as charged.",
+        "max_consecutive": null,
+        "always_followed_by": "Tongue Lash",
+        "is_opener": false
+      }
+    ],
+    "pattern_text": "Shows this enemy's repeating move order. Starts with Plating 15 (19)",
+    "needs_review": true,
+    "review_reason": "No explicit transition found for: ['For the Queen']. Defaulted to uniform distribution over remaining moves -- verify against the live diagram (percentages may only render in SVG/canvas, not in scraped text)."
+  },
+  "compiled": {
+    "start_move": "Tongue Lash",
+    "transitions": {
+      "Strike Down Evil": [
+        [
+          "For the Queen",
+          1.0
+        ]
+      ],
+      "Tongue Lash": [
+        [
+          "Strike Down Evil",
+          1.0
+        ]
+      ],
+      "Beetle Charge": [
+        [
+          "Tongue Lash",
+          1.0
+        ]
+      ],
+      "For the Queen": [
+        [
+          "Strike Down Evil",
+          0.3333333333333333
+        ],
+        [
+          "Tongue Lash",
+          0.3333333333333333
+        ],
+        [
+          "Beetle Charge",
+          0.3333333333333333
+        ]
+      ]
+    }
+  }
+}

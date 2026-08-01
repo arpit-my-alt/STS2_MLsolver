@@ -1,0 +1,50 @@
+{
+  "enemy": {
+    "slug": "fat-gremlin",
+    "display_name": "Fat Gremlin",
+    "moves": [
+      {
+        "name": "Wake Up",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "\u2014",
+        "notes": "Always followed by Flee. Always used at the start of combat.",
+        "max_consecutive": null,
+        "always_followed_by": "Flee",
+        "is_opener": true
+      },
+      {
+        "name": "Flee",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "\u2014",
+        "notes": "\u2014",
+        "max_consecutive": null,
+        "always_followed_by": null,
+        "is_opener": false
+      }
+    ],
+    "pattern_text": "Shows this enemy's repeating move order. Starts stunned when summoned after killing Gremlin Merc.\nKeeps stolen gold if successfully Flees.",
+    "needs_review": true,
+    "review_reason": "No explicit transition found for: ['Flee']. Defaulted to uniform distribution over remaining moves -- verify against the live diagram (percentages may only render in SVG/canvas, not in scraped text)."
+  },
+  "compiled": {
+    "start_move": "Wake Up",
+    "transitions": {
+      "Wake Up": [
+        [
+          "Flee",
+          1.0
+        ]
+      ],
+      "Flee": [
+        [
+          "Wake Up",
+          1.0
+        ]
+      ]
+    }
+  }
+}

@@ -1,0 +1,113 @@
+{
+  "enemy": {
+    "slug": "decimillipede-segment",
+    "display_name": "Decimillipede",
+    "moves": [
+      {
+        "name": "Writhe",
+        "hits": 2,
+        "base_dmg": 5,
+        "asc_dmg": 6,
+        "target": "Player",
+        "notes": "Cannot be used on consecutive turns. Always followed by Tackle. Always used at the start of combat.",
+        "max_consecutive": 1,
+        "always_followed_by": "Tackle",
+        "is_opener": true
+      },
+      {
+        "name": "Bulk",
+        "hits": 1,
+        "base_dmg": 6,
+        "asc_dmg": 7,
+        "target": "Player",
+        "notes": "Cannot be used on consecutive turns. Always followed by Writhe. Always used at the start of combat.",
+        "max_consecutive": 1,
+        "always_followed_by": "Writhe",
+        "is_opener": true
+      },
+      {
+        "name": "Tackle",
+        "hits": 1,
+        "base_dmg": 8,
+        "asc_dmg": 9,
+        "target": "Player",
+        "notes": "Cannot be used on consecutive turns. Always followed by Bulk. Always used at the start of combat.",
+        "max_consecutive": 1,
+        "always_followed_by": "Bulk",
+        "is_opener": true
+      },
+      {
+        "name": "Dead",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "\u2014",
+        "notes": "Always followed by Reattach. No transition in the current official state machine leads to this move. It exists in source, but does not trigger in the normal sequence. If any other Decimillipede segment is still alive, this dead segment is not removed and does not fully die. It becomes non-interactable and waits for \"Reattach\".",
+        "max_consecutive": null,
+        "always_followed_by": "Reattach",
+        "is_opener": false
+      },
+      {
+        "name": "Reattach",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "\u2014",
+        "notes": "As long as another segment is still alive, this revives the segment with 25 HP. The Decimillipede group only fully dies when all segments are dead.",
+        "max_consecutive": null,
+        "always_followed_by": null,
+        "is_opener": false
+      }
+    ],
+    "pattern_text": "Shows this enemy's repeating move order. Starts with Reattach .",
+    "needs_review": true,
+    "review_reason": "No explicit transition found for: ['Reattach']. Defaulted to uniform distribution over remaining moves -- verify against the live diagram (percentages may only render in SVG/canvas, not in scraped text). Multiple moves flagged as combat-openers: ['Writhe', 'Bulk', 'Tackle'] -- likely position-dependent (e.g. front/middle/back in a pack); needs manual disambiguation."
+  },
+  "compiled": {
+    "start_move": "Writhe",
+    "transitions": {
+      "Writhe": [
+        [
+          "Tackle",
+          1.0
+        ]
+      ],
+      "Bulk": [
+        [
+          "Writhe",
+          1.0
+        ]
+      ],
+      "Tackle": [
+        [
+          "Bulk",
+          1.0
+        ]
+      ],
+      "Dead": [
+        [
+          "Reattach",
+          1.0
+        ]
+      ],
+      "Reattach": [
+        [
+          "Writhe",
+          0.25
+        ],
+        [
+          "Bulk",
+          0.25
+        ],
+        [
+          "Tackle",
+          0.25
+        ],
+        [
+          "Dead",
+          0.25
+        ]
+      ]
+    }
+  }
+}

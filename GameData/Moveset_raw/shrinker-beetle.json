@@ -1,0 +1,67 @@
+{
+  "enemy": {
+    "slug": "shrinker-beetle",
+    "display_name": "Shrinker Beetle",
+    "moves": [
+      {
+        "name": "Shrinker",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "Player",
+        "notes": "Always followed by Chomp. Always used at the start of combat.",
+        "max_consecutive": null,
+        "always_followed_by": "Chomp",
+        "is_opener": true
+      },
+      {
+        "name": "Chomp",
+        "hits": 1,
+        "base_dmg": 7,
+        "asc_dmg": 8,
+        "target": "Player",
+        "notes": "Always followed by Stomp.",
+        "max_consecutive": null,
+        "always_followed_by": "Stomp",
+        "is_opener": false
+      },
+      {
+        "name": "Stomp",
+        "hits": 1,
+        "base_dmg": 13,
+        "asc_dmg": 14,
+        "target": "Player",
+        "notes": "Always followed by Chomp.",
+        "max_consecutive": null,
+        "always_followed_by": "Chomp",
+        "is_opener": false
+      }
+    ],
+    "pattern_text": "Shows this enemy's repeating move order. Shrink : Deal 30% reduced damage.",
+    "needs_review": false,
+    "review_reason": ""
+  },
+  "compiled": {
+    "start_move": "Shrinker",
+    "transitions": {
+      "Shrinker": [
+        [
+          "Chomp",
+          1.0
+        ]
+      ],
+      "Chomp": [
+        [
+          "Stomp",
+          1.0
+        ]
+      ],
+      "Stomp": [
+        [
+          "Chomp",
+          1.0
+        ]
+      ]
+    }
+  }
+}

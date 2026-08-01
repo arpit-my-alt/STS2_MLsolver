@@ -1,0 +1,50 @@
+{
+  "enemy": {
+    "slug": "slumbering-beetle",
+    "display_name": "Slumbering Beetle",
+    "moves": [
+      {
+        "name": "Snore",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "\u2014",
+        "notes": "Always used at the start of combat.",
+        "max_consecutive": null,
+        "always_followed_by": null,
+        "is_opener": true
+      },
+      {
+        "name": "Roll Out",
+        "hits": 1,
+        "base_dmg": 16,
+        "asc_dmg": 18,
+        "target": "Player",
+        "notes": "\u2014",
+        "max_consecutive": null,
+        "always_followed_by": null,
+        "is_opener": false
+      }
+    ],
+    "pattern_text": "Shows this enemy's repeating move order. Starts with Plating 15 (18) and Slumber 3 Slumber X: Counter decreases after taking a turn or losing HP. Awakens at the end of its turn if counter has reached 0.",
+    "needs_review": true,
+    "review_reason": "No explicit transition found for: ['Snore', 'Roll Out']. Defaulted to uniform distribution over remaining moves -- verify against the live diagram (percentages may only render in SVG/canvas, not in scraped text)."
+  },
+  "compiled": {
+    "start_move": "Snore",
+    "transitions": {
+      "Snore": [
+        [
+          "Roll Out",
+          1.0
+        ]
+      ],
+      "Roll Out": [
+        [
+          "Snore",
+          1.0
+        ]
+      ]
+    }
+  }
+}

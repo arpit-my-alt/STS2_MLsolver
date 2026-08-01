@@ -1,0 +1,50 @@
+{
+  "enemy": {
+    "slug": "byrdonis",
+    "display_name": "Byrdonis",
+    "moves": [
+      {
+        "name": "Peck",
+        "hits": 3,
+        "base_dmg": 3,
+        "asc_dmg": 4,
+        "target": "Player",
+        "notes": "Always followed by Swoop.",
+        "max_consecutive": null,
+        "always_followed_by": "Swoop",
+        "is_opener": false
+      },
+      {
+        "name": "Swoop",
+        "hits": 1,
+        "base_dmg": 17,
+        "asc_dmg": 19,
+        "target": "Player",
+        "notes": "Always followed by Peck. Always used at the start of combat.",
+        "max_consecutive": null,
+        "always_followed_by": "Peck",
+        "is_opener": true
+      }
+    ],
+    "pattern_text": "Shows this enemy's repeating move order. Starts with Territorial 1 Territorial X: At the end of its turn, gains X strength .",
+    "needs_review": false,
+    "review_reason": ""
+  },
+  "compiled": {
+    "start_move": "Swoop",
+    "transitions": {
+      "Peck": [
+        [
+          "Swoop",
+          1.0
+        ]
+      ],
+      "Swoop": [
+        [
+          "Peck",
+          1.0
+        ]
+      ]
+    }
+  }
+}

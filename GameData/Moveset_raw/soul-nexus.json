@@ -1,0 +1,79 @@
+{
+  "enemy": {
+    "slug": "soul-nexus",
+    "display_name": "Soul Nexus",
+    "moves": [
+      {
+        "name": "Soul Burn",
+        "hits": 1,
+        "base_dmg": 29,
+        "asc_dmg": 31,
+        "target": "Player",
+        "notes": "Cannot be used on consecutive turns. Always used at the start of combat.",
+        "max_consecutive": 1,
+        "always_followed_by": null,
+        "is_opener": true
+      },
+      {
+        "name": "Maelstrom",
+        "hits": 4,
+        "base_dmg": 6,
+        "asc_dmg": 7,
+        "target": "Player",
+        "notes": "Cannot be used on consecutive turns.",
+        "max_consecutive": 1,
+        "always_followed_by": null,
+        "is_opener": false
+      },
+      {
+        "name": "Drain Life",
+        "hits": 1,
+        "base_dmg": 18,
+        "asc_dmg": 19,
+        "target": "Player",
+        "notes": "Cannot be used on consecutive turns.",
+        "max_consecutive": 1,
+        "always_followed_by": null,
+        "is_opener": false
+      }
+    ],
+    "pattern_text": "Shows this enemy's repeating move order.",
+    "needs_review": true,
+    "review_reason": "No explicit transition found for: ['Soul Burn', 'Maelstrom', 'Drain Life']. Defaulted to uniform distribution over remaining moves -- verify against the live diagram (percentages may only render in SVG/canvas, not in scraped text)."
+  },
+  "compiled": {
+    "start_move": "Soul Burn",
+    "transitions": {
+      "Soul Burn": [
+        [
+          "Maelstrom",
+          0.5
+        ],
+        [
+          "Drain Life",
+          0.5
+        ]
+      ],
+      "Maelstrom": [
+        [
+          "Soul Burn",
+          0.5
+        ],
+        [
+          "Drain Life",
+          0.5
+        ]
+      ],
+      "Drain Life": [
+        [
+          "Soul Burn",
+          0.5
+        ],
+        [
+          "Maelstrom",
+          0.5
+        ]
+      ]
+    }
+  }
+}

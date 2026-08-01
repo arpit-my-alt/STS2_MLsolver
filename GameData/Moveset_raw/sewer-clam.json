@@ -1,0 +1,50 @@
+{
+  "enemy": {
+    "slug": "sewer-clam",
+    "display_name": "Sewer Clam",
+    "moves": [
+      {
+        "name": "Pressurize",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "Self",
+        "notes": "Always followed by Jet. Always used at the start of combat.",
+        "max_consecutive": null,
+        "always_followed_by": "Jet",
+        "is_opener": true
+      },
+      {
+        "name": "Jet",
+        "hits": 1,
+        "base_dmg": 10,
+        "asc_dmg": 11,
+        "target": "Player",
+        "notes": "Always followed by Pressurize. Always used at the start of combat.",
+        "max_consecutive": null,
+        "always_followed_by": "Pressurize",
+        "is_opener": true
+      }
+    ],
+    "pattern_text": "Shows this enemy's repeating move order. Starts with Plating 8 (9).",
+    "needs_review": true,
+    "review_reason": "Multiple moves flagged as combat-openers: ['Pressurize', 'Jet'] -- likely position-dependent (e.g. front/middle/back in a pack); needs manual disambiguation."
+  },
+  "compiled": {
+    "start_move": "Pressurize",
+    "transitions": {
+      "Pressurize": [
+        [
+          "Jet",
+          1.0
+        ]
+      ],
+      "Jet": [
+        [
+          "Pressurize",
+          1.0
+        ]
+      ]
+    }
+  }
+}

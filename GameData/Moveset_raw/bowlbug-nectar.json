@@ -1,0 +1,61 @@
+{
+  "enemy": {
+    "slug": "bowlbug-nectar",
+    "display_name": "Bowlbug (Nectar)",
+    "moves": [
+      {
+        "name": "Thrash",
+        "hits": 1,
+        "base_dmg": 3,
+        "asc_dmg": 3,
+        "target": "Player",
+        "notes": "Always followed by Buff. Always used at the start of combat.",
+        "max_consecutive": null,
+        "always_followed_by": "Buff",
+        "is_opener": true
+      },
+      {
+        "name": "Buff",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "Self",
+        "notes": "Always followed by Thrash.",
+        "max_consecutive": null,
+        "always_followed_by": "Thrash",
+        "is_opener": false
+      },
+      {
+        "name": "Thrash",
+        "hits": 1,
+        "base_dmg": 3,
+        "asc_dmg": 3,
+        "target": "Player",
+        "notes": "\u2014",
+        "max_consecutive": null,
+        "always_followed_by": null,
+        "is_opener": false
+      }
+    ],
+    "pattern_text": "Shows this enemy's repeating move order.",
+    "needs_review": false,
+    "review_reason": ""
+  },
+  "compiled": {
+    "start_move": "Thrash",
+    "transitions": {
+      "Thrash": [
+        [
+          "Buff",
+          1.0
+        ]
+      ],
+      "Buff": [
+        [
+          "Thrash",
+          1.0
+        ]
+      ]
+    }
+  }
+}

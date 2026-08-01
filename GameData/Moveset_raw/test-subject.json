@@ -1,0 +1,175 @@
+{
+  "enemy": {
+    "slug": "test-subject",
+    "display_name": "Test Subject #C{Count}",
+    "moves": [
+      {
+        "name": "Respawn",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "Self",
+        "notes": "No transition in the current official state machine leads to this move. It exists in source, but does not trigger in the normal sequence. After the first death, it revives into phase 2 with 200(212) x player count HP and gains Painful Stabs . After the second death, it revives into phase 3 with 300(313) x player count HP, gains Nemesis , and removes Adaptable plus Painful Stabs .",
+        "max_consecutive": null,
+        "always_followed_by": null,
+        "is_opener": false
+      },
+      {
+        "name": "Bite",
+        "hits": 1,
+        "base_dmg": 20,
+        "asc_dmg": 22,
+        "target": "Player",
+        "notes": "Always followed by Skull Bash. Always used at the start of combat.",
+        "max_consecutive": null,
+        "always_followed_by": "Skull Bash",
+        "is_opener": true
+      },
+      {
+        "name": "Skull Bash",
+        "hits": 1,
+        "base_dmg": 14,
+        "asc_dmg": 16,
+        "target": "Player",
+        "notes": "Always followed by Bite.",
+        "max_consecutive": null,
+        "always_followed_by": "Bite",
+        "is_opener": false
+      },
+      {
+        "name": "Multi-Claw",
+        "hits": 1,
+        "base_dmg": 10,
+        "asc_dmg": 11,
+        "target": "Player",
+        "notes": "This move starts at 3 hits. Each time it is used, future Multi Claw hit count increases by 1 .",
+        "max_consecutive": null,
+        "always_followed_by": null,
+        "is_opener": false
+      },
+      {
+        "name": "Lacerate",
+        "hits": 3,
+        "base_dmg": 10,
+        "asc_dmg": 11,
+        "target": "Player",
+        "notes": "Always followed by Big Pounce.",
+        "max_consecutive": null,
+        "always_followed_by": "Big Pounce",
+        "is_opener": false
+      },
+      {
+        "name": "Big Pounce",
+        "hits": 1,
+        "base_dmg": 45,
+        "asc_dmg": 45,
+        "target": "Player",
+        "notes": "Always followed by Burning Growl.",
+        "max_consecutive": null,
+        "always_followed_by": "Burning Growl",
+        "is_opener": false
+      },
+      {
+        "name": "Burning Growl",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "Self",
+        "notes": "Always followed by Lacerate.",
+        "max_consecutive": null,
+        "always_followed_by": "Lacerate",
+        "is_opener": false
+      }
+    ],
+    "pattern_text": "Shows this enemy's repeating move order.",
+    "needs_review": true,
+    "review_reason": "No explicit transition found for: ['Respawn', 'Multi-Claw']. Defaulted to uniform distribution over remaining moves -- verify against the live diagram (percentages may only render in SVG/canvas, not in scraped text)."
+  },
+  "compiled": {
+    "start_move": "Bite",
+    "transitions": {
+      "Bite": [
+        [
+          "Skull Bash",
+          1.0
+        ]
+      ],
+      "Skull Bash": [
+        [
+          "Bite",
+          1.0
+        ]
+      ],
+      "Lacerate": [
+        [
+          "Big Pounce",
+          1.0
+        ]
+      ],
+      "Big Pounce": [
+        [
+          "Burning Growl",
+          1.0
+        ]
+      ],
+      "Burning Growl": [
+        [
+          "Lacerate",
+          1.0
+        ]
+      ],
+      "Respawn": [
+        [
+          "Bite",
+          0.16666666666666666
+        ],
+        [
+          "Skull Bash",
+          0.16666666666666666
+        ],
+        [
+          "Multi-Claw",
+          0.16666666666666666
+        ],
+        [
+          "Lacerate",
+          0.16666666666666666
+        ],
+        [
+          "Big Pounce",
+          0.16666666666666666
+        ],
+        [
+          "Burning Growl",
+          0.16666666666666666
+        ]
+      ],
+      "Multi-Claw": [
+        [
+          "Respawn",
+          0.16666666666666666
+        ],
+        [
+          "Bite",
+          0.16666666666666666
+        ],
+        [
+          "Skull Bash",
+          0.16666666666666666
+        ],
+        [
+          "Lacerate",
+          0.16666666666666666
+        ],
+        [
+          "Big Pounce",
+          0.16666666666666666
+        ],
+        [
+          "Burning Growl",
+          0.16666666666666666
+        ]
+      ]
+    }
+  }
+}

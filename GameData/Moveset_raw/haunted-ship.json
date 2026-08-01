@@ -1,0 +1,116 @@
+{
+  "enemy": {
+    "slug": "haunted-ship",
+    "display_name": "Haunted Ship",
+    "moves": [
+      {
+        "name": "Ramming Speed",
+        "hits": 1,
+        "base_dmg": 10,
+        "asc_dmg": 11,
+        "target": "Player",
+        "notes": "Cannot be used on consecutive turns.",
+        "max_consecutive": 1,
+        "always_followed_by": null,
+        "is_opener": false
+      },
+      {
+        "name": "Swipe",
+        "hits": 1,
+        "base_dmg": 13,
+        "asc_dmg": 14,
+        "target": "Player",
+        "notes": "Cannot be used on consecutive turns.",
+        "max_consecutive": 1,
+        "always_followed_by": null,
+        "is_opener": false
+      },
+      {
+        "name": "Stomp",
+        "hits": 3,
+        "base_dmg": 4,
+        "asc_dmg": 5,
+        "target": "Player",
+        "notes": "Cannot be used on consecutive turns.",
+        "max_consecutive": 1,
+        "always_followed_by": null,
+        "is_opener": false
+      },
+      {
+        "name": "Haunt",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "Player",
+        "notes": "Always used at the start of combat.",
+        "max_consecutive": null,
+        "always_followed_by": null,
+        "is_opener": true
+      }
+    ],
+    "pattern_text": "Shows this enemy's repeating move order.",
+    "needs_review": true,
+    "review_reason": "No explicit transition found for: ['Ramming Speed', 'Swipe', 'Stomp', 'Haunt']. Defaulted to uniform distribution over remaining moves -- verify against the live diagram (percentages may only render in SVG/canvas, not in scraped text)."
+  },
+  "compiled": {
+    "start_move": "Haunt",
+    "transitions": {
+      "Ramming Speed": [
+        [
+          "Swipe",
+          0.3333333333333333
+        ],
+        [
+          "Stomp",
+          0.3333333333333333
+        ],
+        [
+          "Haunt",
+          0.3333333333333333
+        ]
+      ],
+      "Swipe": [
+        [
+          "Ramming Speed",
+          0.3333333333333333
+        ],
+        [
+          "Stomp",
+          0.3333333333333333
+        ],
+        [
+          "Haunt",
+          0.3333333333333333
+        ]
+      ],
+      "Stomp": [
+        [
+          "Ramming Speed",
+          0.3333333333333333
+        ],
+        [
+          "Swipe",
+          0.3333333333333333
+        ],
+        [
+          "Haunt",
+          0.3333333333333333
+        ]
+      ],
+      "Haunt": [
+        [
+          "Ramming Speed",
+          0.3333333333333333
+        ],
+        [
+          "Swipe",
+          0.3333333333333333
+        ],
+        [
+          "Stomp",
+          0.3333333333333333
+        ]
+      ]
+    }
+  }
+}

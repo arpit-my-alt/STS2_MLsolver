@@ -1,0 +1,50 @@
+{
+  "enemy": {
+    "slug": "bowlbug-rock",
+    "display_name": "Bowlbug (Rock)",
+    "moves": [
+      {
+        "name": "Headbutt",
+        "hits": 1,
+        "base_dmg": 15,
+        "asc_dmg": 16,
+        "target": "Player",
+        "notes": "Always used at the start of combat. Bowlbug Rock starts with Imbalanced . If it is off balance after \"Headbutt\", the next move is \"Dizzy\"; otherwise it keeps using \"Headbutt\".",
+        "max_consecutive": null,
+        "always_followed_by": null,
+        "is_opener": true
+      },
+      {
+        "name": "Dizzy",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "\u2014",
+        "notes": "Always followed by Headbutt. Only triggers if it is still off balance after the previous \"Headbutt\". This move clears off balance and returns to \"Headbutt\".",
+        "max_consecutive": null,
+        "always_followed_by": "Headbutt",
+        "is_opener": false
+      }
+    ],
+    "pattern_text": "Shows this enemy's repeating move order. Starts with Imbalanced Imbalanced : Becomes stunned if its attack is fully blocked.",
+    "needs_review": true,
+    "review_reason": "No explicit transition found for: ['Headbutt']. Defaulted to uniform distribution over remaining moves -- verify against the live diagram (percentages may only render in SVG/canvas, not in scraped text)."
+  },
+  "compiled": {
+    "start_move": "Headbutt",
+    "transitions": {
+      "Dizzy": [
+        [
+          "Headbutt",
+          1.0
+        ]
+      ],
+      "Headbutt": [
+        [
+          "Dizzy",
+          1.0
+        ]
+      ]
+    }
+  }
+}

@@ -1,0 +1,67 @@
+{
+  "enemy": {
+    "slug": "living-fog",
+    "display_name": "Living Fog",
+    "moves": [
+      {
+        "name": "Advanced Gas",
+        "hits": 1,
+        "base_dmg": 8,
+        "asc_dmg": 9,
+        "target": "Player",
+        "notes": "Always followed by Bloat. Always used at the start of combat.",
+        "max_consecutive": null,
+        "always_followed_by": "Bloat",
+        "is_opener": true
+      },
+      {
+        "name": "Bloat",
+        "hits": 1,
+        "base_dmg": 5,
+        "asc_dmg": 6,
+        "target": "Player",
+        "notes": "Always followed by Super Gas Blast. This move summons Gas Bomb into empty slots. In v0.103.2, the summon count is fixed at 1 and no longer increases on later uses.",
+        "max_consecutive": null,
+        "always_followed_by": "Super Gas Blast",
+        "is_opener": false
+      },
+      {
+        "name": "Super Gas Blast",
+        "hits": 1,
+        "base_dmg": 8,
+        "asc_dmg": 9,
+        "target": "Player",
+        "notes": "Always followed by Bloat.",
+        "max_consecutive": null,
+        "always_followed_by": "Bloat",
+        "is_opener": false
+      }
+    ],
+    "pattern_text": "Shows this enemy's repeating move order. Smoggy : You can only play 1 skill per turn.",
+    "needs_review": false,
+    "review_reason": ""
+  },
+  "compiled": {
+    "start_move": "Advanced Gas",
+    "transitions": {
+      "Advanced Gas": [
+        [
+          "Bloat",
+          1.0
+        ]
+      ],
+      "Bloat": [
+        [
+          "Super Gas Blast",
+          1.0
+        ]
+      ],
+      "Super Gas Blast": [
+        [
+          "Bloat",
+          1.0
+        ]
+      ]
+    }
+  }
+}

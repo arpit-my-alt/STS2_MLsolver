@@ -1,0 +1,50 @@
+{
+  "enemy": {
+    "slug": "tracker-ruby-raider",
+    "display_name": "Tracker Raider",
+    "moves": [
+      {
+        "name": "Track",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "Player",
+        "notes": "Always followed by Unleash the Hounds. Always used at the start of combat.",
+        "max_consecutive": null,
+        "always_followed_by": "Unleash the Hounds",
+        "is_opener": true
+      },
+      {
+        "name": "Unleash the Hounds",
+        "hits": 8,
+        "base_dmg": 1,
+        "asc_dmg": 1,
+        "target": "Player",
+        "notes": "\u2014",
+        "max_consecutive": null,
+        "always_followed_by": null,
+        "is_opener": false
+      }
+    ],
+    "pattern_text": "Shows this enemy's repeating move order.",
+    "needs_review": true,
+    "review_reason": "No explicit transition found for: ['Unleash the Hounds']. Defaulted to uniform distribution over remaining moves -- verify against the live diagram (percentages may only render in SVG/canvas, not in scraped text)."
+  },
+  "compiled": {
+    "start_move": "Track",
+    "transitions": {
+      "Track": [
+        [
+          "Unleash the Hounds",
+          1.0
+        ]
+      ],
+      "Unleash the Hounds": [
+        [
+          "Track",
+          1.0
+        ]
+      ]
+    }
+  }
+}

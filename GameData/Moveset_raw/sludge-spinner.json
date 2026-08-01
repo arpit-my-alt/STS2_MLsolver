@@ -1,0 +1,79 @@
+{
+  "enemy": {
+    "slug": "sludge-spinner",
+    "display_name": "Sludge Spinner",
+    "moves": [
+      {
+        "name": "Oil Spray",
+        "hits": 1,
+        "base_dmg": 8,
+        "asc_dmg": 9,
+        "target": "Player",
+        "notes": "Cannot be used on consecutive turns. Always used at the start of combat.",
+        "max_consecutive": 1,
+        "always_followed_by": null,
+        "is_opener": true
+      },
+      {
+        "name": "Slam",
+        "hits": 1,
+        "base_dmg": 11,
+        "asc_dmg": 12,
+        "target": "Player",
+        "notes": "Cannot be used on consecutive turns.",
+        "max_consecutive": 1,
+        "always_followed_by": null,
+        "is_opener": false
+      },
+      {
+        "name": "Rage",
+        "hits": 1,
+        "base_dmg": 6,
+        "asc_dmg": 7,
+        "target": "Player",
+        "notes": "Cannot be used on consecutive turns.",
+        "max_consecutive": 1,
+        "always_followed_by": null,
+        "is_opener": false
+      }
+    ],
+    "pattern_text": "Shows this enemy's repeating move order.",
+    "needs_review": true,
+    "review_reason": "No explicit transition found for: ['Oil Spray', 'Slam', 'Rage']. Defaulted to uniform distribution over remaining moves -- verify against the live diagram (percentages may only render in SVG/canvas, not in scraped text)."
+  },
+  "compiled": {
+    "start_move": "Oil Spray",
+    "transitions": {
+      "Oil Spray": [
+        [
+          "Slam",
+          0.5
+        ],
+        [
+          "Rage",
+          0.5
+        ]
+      ],
+      "Slam": [
+        [
+          "Oil Spray",
+          0.5
+        ],
+        [
+          "Rage",
+          0.5
+        ]
+      ],
+      "Rage": [
+        [
+          "Oil Spray",
+          0.5
+        ],
+        [
+          "Slam",
+          0.5
+        ]
+      ]
+    }
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "enemy": {
+    "slug": "inklet",
+    "display_name": "Inklet",
+    "moves": [
+      {
+        "name": "Jab",
+        "hits": 1,
+        "base_dmg": 3,
+        "asc_dmg": 4,
+        "target": "Player",
+        "notes": "Can be used at most 2 times in a row. Always used at the start of combat.",
+        "max_consecutive": 2,
+        "always_followed_by": null,
+        "is_opener": true
+      },
+      {
+        "name": "Whirlwind",
+        "hits": 3,
+        "base_dmg": 2,
+        "asc_dmg": 3,
+        "target": "Player",
+        "notes": "Cannot be used on consecutive turns. Always followed by Jab. Always used at the start of combat.",
+        "max_consecutive": 1,
+        "always_followed_by": "Jab",
+        "is_opener": true
+      },
+      {
+        "name": "Piercing Gaze",
+        "hits": 1,
+        "base_dmg": 10,
+        "asc_dmg": 11,
+        "target": "Player",
+        "notes": "Cannot be used on consecutive turns. Always followed by Jab.",
+        "max_consecutive": 1,
+        "always_followed_by": "Jab",
+        "is_opener": false
+      }
+    ],
+    "pattern_text": "Shows this enemy's repeating move order. Starts with Slippery 1 Slippery X: The next time this enemy loses HP, it loses 1 HP instead.",
+    "needs_review": true,
+    "review_reason": "No explicit transition found for: ['Jab']. Defaulted to uniform distribution over remaining moves -- verify against the live diagram (percentages may only render in SVG/canvas, not in scraped text). Multiple moves flagged as combat-openers: ['Jab', 'Whirlwind'] -- likely position-dependent (e.g. front/middle/back in a pack); needs manual disambiguation."
+  },
+  "compiled": {
+    "start_move": "Jab",
+    "transitions": {
+      "Whirlwind": [
+        [
+          "Jab",
+          1.0
+        ]
+      ],
+      "Piercing Gaze": [
+        [
+          "Jab",
+          1.0
+        ]
+      ],
+      "Jab": [
+        [
+          "Whirlwind",
+          0.5
+        ],
+        [
+          "Piercing Gaze",
+          0.5
+        ]
+      ]
+    }
+  }
+}

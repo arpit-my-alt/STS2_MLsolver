@@ -1,0 +1,33 @@
+{
+  "enemy": {
+    "slug": "gas-bomb",
+    "display_name": "Gas Bomb",
+    "moves": [
+      {
+        "name": "Explode",
+        "hits": 1,
+        "base_dmg": 8,
+        "asc_dmg": 9,
+        "target": "Player",
+        "notes": "Always used at the start of combat.",
+        "max_consecutive": null,
+        "always_followed_by": null,
+        "is_opener": true
+      }
+    ],
+    "pattern_text": "Shows this enemy's repeating move order. Gas Bomb is a minion .",
+    "needs_review": true,
+    "review_reason": "No explicit transition found for: ['Explode']. Defaulted to uniform distribution over remaining moves -- verify against the live diagram (percentages may only render in SVG/canvas, not in scraped text)."
+  },
+  "compiled": {
+    "start_move": "Explode",
+    "transitions": {
+      "Explode": [
+        [
+          "Explode",
+          1.0
+        ]
+      ]
+    }
+  }
+}

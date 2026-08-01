@@ -1,0 +1,71 @@
+{
+  "enemy": {
+    "slug": "bygone-effigy",
+    "display_name": "Bygone Effigy",
+    "moves": [
+      {
+        "name": "Initial Sleep",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "\u2014",
+        "notes": "Always followed by Awaken. Always used at the start of combat.",
+        "max_consecutive": null,
+        "always_followed_by": "Awaken",
+        "is_opener": true
+      },
+      {
+        "name": "Awaken",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "Self",
+        "notes": "Always followed by Slashes.",
+        "max_consecutive": null,
+        "always_followed_by": "Slashes",
+        "is_opener": false
+      },
+      {
+        "name": "Slashes",
+        "hits": 1,
+        "base_dmg": 13,
+        "asc_dmg": 15,
+        "target": "Player",
+        "notes": "\u2014",
+        "max_consecutive": null,
+        "always_followed_by": null,
+        "is_opener": false
+      }
+    ],
+    "pattern_text": "Shows this enemy's repeating move order. Starts with Slow Slow : Attacks deal 10% extra damage for every card played this turn.",
+    "needs_review": true,
+    "review_reason": "No explicit transition found for: ['Slashes']. Defaulted to uniform distribution over remaining moves -- verify against the live diagram (percentages may only render in SVG/canvas, not in scraped text)."
+  },
+  "compiled": {
+    "start_move": "Initial Sleep",
+    "transitions": {
+      "Initial Sleep": [
+        [
+          "Awaken",
+          1.0
+        ]
+      ],
+      "Awaken": [
+        [
+          "Slashes",
+          1.0
+        ]
+      ],
+      "Slashes": [
+        [
+          "Initial Sleep",
+          0.5
+        ],
+        [
+          "Awaken",
+          0.5
+        ]
+      ]
+    }
+  }
+}

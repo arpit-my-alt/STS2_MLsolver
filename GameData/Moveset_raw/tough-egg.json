@@ -1,0 +1,50 @@
+{
+  "enemy": {
+    "slug": "tough-egg",
+    "display_name": "Tough Egg",
+    "moves": [
+      {
+        "name": "HATCH",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "\u2014",
+        "notes": "Always followed by Nibble. Always used at the start of combat. After hatching, it becomes Hatchling, removes all powers except Minion , and resets to 19(20)-22(23) HP.",
+        "max_consecutive": null,
+        "always_followed_by": "Nibble",
+        "is_opener": true
+      },
+      {
+        "name": "Nibble",
+        "hits": 1,
+        "base_dmg": 4,
+        "asc_dmg": 5,
+        "target": "Player",
+        "notes": "\u2014",
+        "max_consecutive": null,
+        "always_followed_by": null,
+        "is_opener": false
+      }
+    ],
+    "pattern_text": "Shows this enemy's repeating move order. Starts with Hatch 1.",
+    "needs_review": true,
+    "review_reason": "No explicit transition found for: ['Nibble']. Defaulted to uniform distribution over remaining moves -- verify against the live diagram (percentages may only render in SVG/canvas, not in scraped text)."
+  },
+  "compiled": {
+    "start_move": "HATCH",
+    "transitions": {
+      "HATCH": [
+        [
+          "Nibble",
+          1.0
+        ]
+      ],
+      "Nibble": [
+        [
+          "HATCH",
+          1.0
+        ]
+      ]
+    }
+  }
+}

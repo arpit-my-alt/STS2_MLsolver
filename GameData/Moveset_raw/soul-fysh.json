@@ -1,0 +1,113 @@
+{
+  "enemy": {
+    "slug": "soul-fysh",
+    "display_name": "Soul Fysh",
+    "moves": [
+      {
+        "name": "Beckon",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "Player",
+        "notes": "Always followed by De-Gas. Always used at the start of combat.",
+        "max_consecutive": null,
+        "always_followed_by": null,
+        "is_opener": true
+      },
+      {
+        "name": "De-Gas",
+        "hits": 1,
+        "base_dmg": 16,
+        "asc_dmg": 17,
+        "target": "Player",
+        "notes": "Always followed by Gaze.",
+        "max_consecutive": null,
+        "always_followed_by": "Gaze",
+        "is_opener": false
+      },
+      {
+        "name": "Gaze",
+        "hits": 1,
+        "base_dmg": 7,
+        "asc_dmg": 8,
+        "target": "Player",
+        "notes": "Always followed by Fade.",
+        "max_consecutive": null,
+        "always_followed_by": "Fade",
+        "is_opener": false
+      },
+      {
+        "name": "Fade",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "Self",
+        "notes": "Always followed by Scream.",
+        "max_consecutive": null,
+        "always_followed_by": "Scream",
+        "is_opener": false
+      },
+      {
+        "name": "Scream",
+        "hits": 1,
+        "base_dmg": 13,
+        "asc_dmg": 15,
+        "target": "Player",
+        "notes": "Always followed by Beckon.",
+        "max_consecutive": null,
+        "always_followed_by": "Beckon",
+        "is_opener": false
+      }
+    ],
+    "pattern_text": "Shows this enemy's repeating move order. Beckon : 1 cost status, lose 6 HP if it is in hand at the end of turn.\n* One of the 2 Intangible from Fade ticks down immediately.",
+    "needs_review": true,
+    "review_reason": "No explicit transition found for: ['Beckon']. Defaulted to uniform distribution over remaining moves -- verify against the live diagram (percentages may only render in SVG/canvas, not in scraped text)."
+  },
+  "compiled": {
+    "start_move": "Beckon",
+    "transitions": {
+      "De-Gas": [
+        [
+          "Gaze",
+          1.0
+        ]
+      ],
+      "Gaze": [
+        [
+          "Fade",
+          1.0
+        ]
+      ],
+      "Fade": [
+        [
+          "Scream",
+          1.0
+        ]
+      ],
+      "Scream": [
+        [
+          "Beckon",
+          1.0
+        ]
+      ],
+      "Beckon": [
+        [
+          "De-Gas",
+          0.25
+        ],
+        [
+          "Gaze",
+          0.25
+        ],
+        [
+          "Fade",
+          0.25
+        ],
+        [
+          "Scream",
+          0.25
+        ]
+      ]
+    }
+  }
+}

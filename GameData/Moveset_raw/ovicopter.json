@@ -1,0 +1,92 @@
+{
+  "enemy": {
+    "slug": "ovicopter",
+    "display_name": "Ovicopter",
+    "moves": [
+      {
+        "name": "Lay Eggs",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "Player",
+        "notes": "Always followed by Smash. Always used at the start of combat. This branch is only chosen while fewer than 3 other enemy allies are alive. The move summons 3 Tough Egg with Minion .",
+        "max_consecutive": null,
+        "always_followed_by": "Smash",
+        "is_opener": true
+      },
+      {
+        "name": "Smash",
+        "hits": 1,
+        "base_dmg": 16,
+        "asc_dmg": 17,
+        "target": "Player",
+        "notes": "Always followed by Tenderizer.",
+        "max_consecutive": null,
+        "always_followed_by": "Tenderizer",
+        "is_opener": false
+      },
+      {
+        "name": "Tenderizer",
+        "hits": 1,
+        "base_dmg": 7,
+        "asc_dmg": 8,
+        "target": "Player",
+        "notes": "\u2014",
+        "max_consecutive": null,
+        "always_followed_by": null,
+        "is_opener": false
+      },
+      {
+        "name": "Nutritional Paste",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "Self",
+        "notes": "Always followed by Smash. If 3 other enemy allies are already alive, Ovicopter stops laying eggs and uses this move instead.",
+        "max_consecutive": null,
+        "always_followed_by": "Smash",
+        "is_opener": false
+      }
+    ],
+    "pattern_text": "Shows this enemy's repeating move order. Lay Eggs will summon until there are 3 allies alive (no allies alive -> summons 3, 1 allies alive -> summons 2, etc)",
+    "needs_review": true,
+    "review_reason": "No explicit transition found for: ['Tenderizer']. Defaulted to uniform distribution over remaining moves -- verify against the live diagram (percentages may only render in SVG/canvas, not in scraped text)."
+  },
+  "compiled": {
+    "start_move": "Lay Eggs",
+    "transitions": {
+      "Lay Eggs": [
+        [
+          "Smash",
+          1.0
+        ]
+      ],
+      "Smash": [
+        [
+          "Tenderizer",
+          1.0
+        ]
+      ],
+      "Nutritional Paste": [
+        [
+          "Smash",
+          1.0
+        ]
+      ],
+      "Tenderizer": [
+        [
+          "Lay Eggs",
+          0.3333333333333333
+        ],
+        [
+          "Smash",
+          0.3333333333333333
+        ],
+        [
+          "Nutritional Paste",
+          0.3333333333333333
+        ]
+      ]
+    }
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "enemy": {
+    "slug": "slithering-strangler",
+    "display_name": "Slithering Strangler",
+    "moves": [
+      {
+        "name": "Constrict",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "Player",
+        "notes": "Always used at the start of combat.",
+        "max_consecutive": null,
+        "always_followed_by": null,
+        "is_opener": true
+      },
+      {
+        "name": "Thwack",
+        "hits": 1,
+        "base_dmg": 7,
+        "asc_dmg": 8,
+        "target": "Player",
+        "notes": "Always followed by Constrict.",
+        "max_consecutive": null,
+        "always_followed_by": "Constrict",
+        "is_opener": false
+      },
+      {
+        "name": "Lash",
+        "hits": 1,
+        "base_dmg": 12,
+        "asc_dmg": 13,
+        "target": "Player",
+        "notes": "Always followed by Constrict.",
+        "max_consecutive": null,
+        "always_followed_by": "Constrict",
+        "is_opener": false
+      }
+    ],
+    "pattern_text": "Shows this enemy's repeating move order. Constrict X: While the Slithering Strangler is alive, take X damage at the end of your turn.",
+    "needs_review": true,
+    "review_reason": "No explicit transition found for: ['Constrict']. Defaulted to uniform distribution over remaining moves -- verify against the live diagram (percentages may only render in SVG/canvas, not in scraped text)."
+  },
+  "compiled": {
+    "start_move": "Constrict",
+    "transitions": {
+      "Thwack": [
+        [
+          "Constrict",
+          1.0
+        ]
+      ],
+      "Lash": [
+        [
+          "Constrict",
+          1.0
+        ]
+      ],
+      "Constrict": [
+        [
+          "Thwack",
+          0.5
+        ],
+        [
+          "Lash",
+          0.5
+        ]
+      ]
+    }
+  }
+}

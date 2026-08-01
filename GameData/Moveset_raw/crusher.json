@@ -1,0 +1,101 @@
+{
+  "enemy": {
+    "slug": "crusher",
+    "display_name": "Crusher",
+    "moves": [
+      {
+        "name": "Thrash",
+        "hits": 1,
+        "base_dmg": 12,
+        "asc_dmg": 14,
+        "target": "Player",
+        "notes": "Always followed by Enlarging Strike. Always used at the start of combat.",
+        "max_consecutive": null,
+        "always_followed_by": "Enlarging Strike",
+        "is_opener": true
+      },
+      {
+        "name": "Enlarging Strike",
+        "hits": 1,
+        "base_dmg": 4,
+        "asc_dmg": 4,
+        "target": "Player",
+        "notes": "Always followed by Bug Sting.",
+        "max_consecutive": null,
+        "always_followed_by": "Bug Sting",
+        "is_opener": false
+      },
+      {
+        "name": "Bug Sting",
+        "hits": 2,
+        "base_dmg": 6,
+        "asc_dmg": 7,
+        "target": "Player",
+        "notes": "Always followed by Adapt.",
+        "max_consecutive": null,
+        "always_followed_by": "Adapt",
+        "is_opener": false
+      },
+      {
+        "name": "Adapt",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "Self",
+        "notes": "Always followed by Guarded Strike.",
+        "max_consecutive": null,
+        "always_followed_by": "Guarded Strike",
+        "is_opener": false
+      },
+      {
+        "name": "Guarded Strike",
+        "hits": 1,
+        "base_dmg": 12,
+        "asc_dmg": 14,
+        "target": "Player",
+        "notes": "Always followed by Thrash.",
+        "max_consecutive": null,
+        "always_followed_by": "Thrash",
+        "is_opener": false
+      }
+    ],
+    "pattern_text": "Shows this enemy's repeating move order. Starts with Back Attack and Crab Rage 5. Back Attack : Deals 50% more damage if attacking you from behind. Crab Rage X: When an ally dies, gains 5 strength and 99 block .",
+    "needs_review": false,
+    "review_reason": ""
+  },
+  "compiled": {
+    "start_move": "Thrash",
+    "transitions": {
+      "Thrash": [
+        [
+          "Enlarging Strike",
+          1.0
+        ]
+      ],
+      "Enlarging Strike": [
+        [
+          "Bug Sting",
+          1.0
+        ]
+      ],
+      "Bug Sting": [
+        [
+          "Adapt",
+          1.0
+        ]
+      ],
+      "Adapt": [
+        [
+          "Guarded Strike",
+          1.0
+        ]
+      ],
+      "Guarded Strike": [
+        [
+          "Thrash",
+          1.0
+        ]
+      ]
+    }
+  }
+}

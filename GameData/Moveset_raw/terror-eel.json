@@ -1,0 +1,78 @@
+{
+  "enemy": {
+    "slug": "terror-eel",
+    "display_name": "Terror Eel",
+    "moves": [
+      {
+        "name": "Crash",
+        "hits": 1,
+        "base_dmg": 16,
+        "asc_dmg": 18,
+        "target": "Player",
+        "notes": "Always followed by Thrash. Always used at the start of combat.",
+        "max_consecutive": null,
+        "always_followed_by": "Thrash",
+        "is_opener": true
+      },
+      {
+        "name": "Thrash",
+        "hits": 3,
+        "base_dmg": 3,
+        "asc_dmg": 4,
+        "target": "Player",
+        "notes": "Always followed by Crash.",
+        "max_consecutive": null,
+        "always_followed_by": "Crash",
+        "is_opener": false
+      },
+      {
+        "name": "Crash",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "\u2014",
+        "notes": "Always followed by Terrorize. No transition in the current official state machine leads to this move. It exists in source, but does not trigger in the normal sequence.",
+        "max_consecutive": null,
+        "always_followed_by": "Terrorize",
+        "is_opener": false
+      },
+      {
+        "name": "Terrorize",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "Player",
+        "notes": "Always followed by Crash.",
+        "max_consecutive": null,
+        "always_followed_by": "Crash",
+        "is_opener": false
+      }
+    ],
+    "pattern_text": "Shows this enemy's repeating move order. Starts with Shriek 75 Shriek X: Becomes Stunned after reaching X HP or below.",
+    "needs_review": false,
+    "review_reason": ""
+  },
+  "compiled": {
+    "start_move": "Crash",
+    "transitions": {
+      "Crash": [
+        [
+          "Terrorize",
+          1.0
+        ]
+      ],
+      "Thrash": [
+        [
+          "Crash",
+          1.0
+        ]
+      ],
+      "Terrorize": [
+        [
+          "Crash",
+          1.0
+        ]
+      ]
+    }
+  }
+}

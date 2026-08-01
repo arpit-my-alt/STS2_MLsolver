@@ -1,0 +1,79 @@
+{
+  "enemy": {
+    "slug": "flyconid",
+    "display_name": "Flyconid",
+    "moves": [
+      {
+        "name": "Vulnerable Spores",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "Player",
+        "notes": "Has a 3-turn cooldown after use. Special case: if the previous three moves were Vulnerable Spores -> Frail Spores -> Smash, the next turn falls back to Vulnerable Spores because the other branches are all blocked.",
+        "max_consecutive": null,
+        "always_followed_by": null,
+        "is_opener": false
+      },
+      {
+        "name": "Frail Spores",
+        "hits": 1,
+        "base_dmg": 8,
+        "asc_dmg": 9,
+        "target": "Player",
+        "notes": "Has a 2-turn cooldown after use. Always used at the start of combat.",
+        "max_consecutive": null,
+        "always_followed_by": null,
+        "is_opener": true
+      },
+      {
+        "name": "Smash",
+        "hits": 1,
+        "base_dmg": 11,
+        "asc_dmg": 12,
+        "target": "Player",
+        "notes": "Cannot be used on consecutive turns. Always used at the start of combat.",
+        "max_consecutive": 1,
+        "always_followed_by": null,
+        "is_opener": true
+      }
+    ],
+    "pattern_text": "Shows this enemy's repeating move order.",
+    "needs_review": true,
+    "review_reason": "No explicit transition found for: ['Vulnerable Spores', 'Frail Spores', 'Smash']. Defaulted to uniform distribution over remaining moves -- verify against the live diagram (percentages may only render in SVG/canvas, not in scraped text). Multiple moves flagged as combat-openers: ['Frail Spores', 'Smash'] -- likely position-dependent (e.g. front/middle/back in a pack); needs manual disambiguation."
+  },
+  "compiled": {
+    "start_move": "Frail Spores",
+    "transitions": {
+      "Vulnerable Spores": [
+        [
+          "Frail Spores",
+          0.5
+        ],
+        [
+          "Smash",
+          0.5
+        ]
+      ],
+      "Frail Spores": [
+        [
+          "Vulnerable Spores",
+          0.5
+        ],
+        [
+          "Smash",
+          0.5
+        ]
+      ],
+      "Smash": [
+        [
+          "Vulnerable Spores",
+          0.5
+        ],
+        [
+          "Frail Spores",
+          0.5
+        ]
+      ]
+    }
+  }
+}

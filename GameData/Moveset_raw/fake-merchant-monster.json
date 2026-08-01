@@ -1,0 +1,116 @@
+{
+  "enemy": {
+    "slug": "fake-merchant-monster",
+    "display_name": "The Merchant???",
+    "moves": [
+      {
+        "name": "Swipe",
+        "hits": 1,
+        "base_dmg": 13,
+        "asc_dmg": 15,
+        "target": "Player",
+        "notes": "Cannot be used on consecutive turns. Always used at the start of combat.",
+        "max_consecutive": 1,
+        "always_followed_by": null,
+        "is_opener": true
+      },
+      {
+        "name": "Spew Coins",
+        "hits": 8,
+        "base_dmg": 2,
+        "asc_dmg": 2,
+        "target": "Player",
+        "notes": "Cannot be used on consecutive turns.",
+        "max_consecutive": 1,
+        "always_followed_by": null,
+        "is_opener": false
+      },
+      {
+        "name": "Throw Relic",
+        "hits": 1,
+        "base_dmg": 9,
+        "asc_dmg": 10,
+        "target": "Player",
+        "notes": "Cannot be used on consecutive turns.",
+        "max_consecutive": 1,
+        "always_followed_by": null,
+        "is_opener": false
+      },
+      {
+        "name": "Enrage",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "Self",
+        "notes": "Has a 3-turn cooldown after use.",
+        "max_consecutive": null,
+        "always_followed_by": null,
+        "is_opener": false
+      }
+    ],
+    "pattern_text": "Shows this enemy's repeating move order. The Merchant??? is not a normal map enemy . It is the combat half of the Fake Merchant guide . The event itself only becomes eligible from Act 2 onward, is single-player only, and requires the player to have at least 100 gold or at least one Foul Potion .\n\nThe actual condition for facing this enemy is using a Foul Potion during the Fake Merchant event , which flips the counterfeit shop into combat.\n\nWhen the event starts, it stocks 6 random fake relics from a 9-relic counterfeit pool. Their source base cost is 50, but the displayed shop prices are not best described as a flat fixed 50 in practice. The safer player-facing takeaway is that these fake relics are sold well below normal relic pricing, and because they use separate relic IDs they can coexist with the original relic versions.",
+    "needs_review": true,
+    "review_reason": "No explicit transition found for: ['Swipe', 'Spew Coins', 'Throw Relic', 'Enrage']. Defaulted to uniform distribution over remaining moves -- verify against the live diagram (percentages may only render in SVG/canvas, not in scraped text)."
+  },
+  "compiled": {
+    "start_move": "Swipe",
+    "transitions": {
+      "Swipe": [
+        [
+          "Spew Coins",
+          0.3333333333333333
+        ],
+        [
+          "Throw Relic",
+          0.3333333333333333
+        ],
+        [
+          "Enrage",
+          0.3333333333333333
+        ]
+      ],
+      "Spew Coins": [
+        [
+          "Swipe",
+          0.3333333333333333
+        ],
+        [
+          "Throw Relic",
+          0.3333333333333333
+        ],
+        [
+          "Enrage",
+          0.3333333333333333
+        ]
+      ],
+      "Throw Relic": [
+        [
+          "Swipe",
+          0.3333333333333333
+        ],
+        [
+          "Spew Coins",
+          0.3333333333333333
+        ],
+        [
+          "Enrage",
+          0.3333333333333333
+        ]
+      ],
+      "Enrage": [
+        [
+          "Swipe",
+          0.3333333333333333
+        ],
+        [
+          "Spew Coins",
+          0.3333333333333333
+        ],
+        [
+          "Throw Relic",
+          0.3333333333333333
+        ]
+      ]
+    }
+  }
+}

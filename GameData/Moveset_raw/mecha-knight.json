@@ -1,0 +1,84 @@
+{
+  "enemy": {
+    "slug": "mecha-knight",
+    "display_name": "Mecha Knight",
+    "moves": [
+      {
+        "name": "Charge",
+        "hits": 1,
+        "base_dmg": 25,
+        "asc_dmg": 30,
+        "target": "Player",
+        "notes": "Always followed by Flamethrower. Always used at the start of combat.",
+        "max_consecutive": null,
+        "always_followed_by": "Flamethrower",
+        "is_opener": true
+      },
+      {
+        "name": "Flamethrower",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "Player",
+        "notes": "Always followed by Windup.",
+        "max_consecutive": null,
+        "always_followed_by": "Windup",
+        "is_opener": false
+      },
+      {
+        "name": "Windup",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "Self",
+        "notes": "Always followed by Heavy Cleave.",
+        "max_consecutive": null,
+        "always_followed_by": "Heavy Cleave",
+        "is_opener": false
+      },
+      {
+        "name": "Heavy Cleave",
+        "hits": 1,
+        "base_dmg": 35,
+        "asc_dmg": 40,
+        "target": "Player",
+        "notes": "Always followed by Flamethrower.",
+        "max_consecutive": null,
+        "always_followed_by": "Flamethrower",
+        "is_opener": false
+      }
+    ],
+    "pattern_text": "Shows this enemy's repeating move order. Starts with Artifact 3",
+    "needs_review": false,
+    "review_reason": ""
+  },
+  "compiled": {
+    "start_move": "Charge",
+    "transitions": {
+      "Charge": [
+        [
+          "Flamethrower",
+          1.0
+        ]
+      ],
+      "Flamethrower": [
+        [
+          "Windup",
+          1.0
+        ]
+      ],
+      "Windup": [
+        [
+          "Heavy Cleave",
+          1.0
+        ]
+      ],
+      "Heavy Cleave": [
+        [
+          "Flamethrower",
+          1.0
+        ]
+      ]
+    }
+  }
+}

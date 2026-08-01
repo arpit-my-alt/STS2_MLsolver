@@ -1,0 +1,67 @@
+{
+  "enemy": {
+    "slug": "kin-follower",
+    "display_name": "Kin Follower",
+    "moves": [
+      {
+        "name": "Quick Slash",
+        "hits": 1,
+        "base_dmg": 5,
+        "asc_dmg": 5,
+        "target": "Player",
+        "notes": "Always followed by Boomerang. Always used at the start of combat.",
+        "max_consecutive": null,
+        "always_followed_by": "Boomerang",
+        "is_opener": true
+      },
+      {
+        "name": "Boomerang",
+        "hits": 2,
+        "base_dmg": 2,
+        "asc_dmg": 2,
+        "target": "Player",
+        "notes": "Always followed by Power Dance.",
+        "max_consecutive": null,
+        "always_followed_by": "Power Dance",
+        "is_opener": false
+      },
+      {
+        "name": "Power Dance",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "Self",
+        "notes": "Always followed by Quick Slash. Always used at the start of combat.",
+        "max_consecutive": null,
+        "always_followed_by": "Quick Slash",
+        "is_opener": true
+      }
+    ],
+    "pattern_text": "Shows this enemy's repeating move order. Kin Follower is a minion .",
+    "needs_review": true,
+    "review_reason": "Multiple moves flagged as combat-openers: ['Quick Slash', 'Power Dance'] -- likely position-dependent (e.g. front/middle/back in a pack); needs manual disambiguation."
+  },
+  "compiled": {
+    "start_move": "Quick Slash",
+    "transitions": {
+      "Quick Slash": [
+        [
+          "Boomerang",
+          1.0
+        ]
+      ],
+      "Boomerang": [
+        [
+          "Power Dance",
+          1.0
+        ]
+      ],
+      "Power Dance": [
+        [
+          "Quick Slash",
+          1.0
+        ]
+      ]
+    }
+  }
+}

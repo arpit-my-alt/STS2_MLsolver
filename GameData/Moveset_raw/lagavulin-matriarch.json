@@ -1,0 +1,107 @@
+{
+  "enemy": {
+    "slug": "lagavulin-matriarch",
+    "display_name": "Lagavulin Matriarch",
+    "moves": [
+      {
+        "name": "Sleep",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "\u2014",
+        "notes": "Always used at the start of combat.",
+        "max_consecutive": null,
+        "always_followed_by": null,
+        "is_opener": true
+      },
+      {
+        "name": "Slash",
+        "hits": 1,
+        "base_dmg": 19,
+        "asc_dmg": 21,
+        "target": "Player",
+        "notes": "Always followed by Disembowel.",
+        "max_consecutive": null,
+        "always_followed_by": "Disembowel",
+        "is_opener": false
+      },
+      {
+        "name": "Slash",
+        "hits": 1,
+        "base_dmg": 12,
+        "asc_dmg": 14,
+        "target": "Player",
+        "notes": "Always followed by Soul Siphon.",
+        "max_consecutive": null,
+        "always_followed_by": "Soul Siphon",
+        "is_opener": false
+      },
+      {
+        "name": "Disembowel",
+        "hits": 2,
+        "base_dmg": 9,
+        "asc_dmg": 10,
+        "target": "Player",
+        "notes": "Always followed by Slash.",
+        "max_consecutive": null,
+        "always_followed_by": "Slash",
+        "is_opener": false
+      },
+      {
+        "name": "Soul Siphon",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "Player",
+        "notes": "Always followed by Slash.",
+        "max_consecutive": null,
+        "always_followed_by": "Slash",
+        "is_opener": false
+      }
+    ],
+    "pattern_text": "Shows this enemy's repeating move order. Starts with 12 Plating , and sleeps for 3 turns or until losing HP.\nOn wakeup, all Plating is removed.",
+    "needs_review": true,
+    "review_reason": "No explicit transition found for: ['Sleep']. Defaulted to uniform distribution over remaining moves -- verify against the live diagram (percentages may only render in SVG/canvas, not in scraped text)."
+  },
+  "compiled": {
+    "start_move": "Sleep",
+    "transitions": {
+      "Slash": [
+        [
+          "Soul Siphon",
+          1.0
+        ]
+      ],
+      "Disembowel": [
+        [
+          "Slash",
+          1.0
+        ]
+      ],
+      "Soul Siphon": [
+        [
+          "Slash",
+          1.0
+        ]
+      ],
+      "Sleep": [
+        [
+          "Slash",
+          0.25
+        ],
+        [
+          "Slash",
+          0.25
+        ],
+        [
+          "Disembowel",
+          0.25
+        ],
+        [
+          "Soul Siphon",
+          0.25
+        ]
+      ]
+    }
+  }
+}

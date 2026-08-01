@@ -1,0 +1,95 @@
+{
+  "enemy": {
+    "slug": "magi-knight",
+    "display_name": "Magi Knight",
+    "moves": [
+      {
+        "name": "Power Shield",
+        "hits": 1,
+        "base_dmg": 6,
+        "asc_dmg": 7,
+        "target": "Player",
+        "notes": "Always followed by Dampen. Always used at the start of combat.",
+        "max_consecutive": null,
+        "always_followed_by": "Dampen",
+        "is_opener": true
+      },
+      {
+        "name": "Dampen",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "\u2014",
+        "notes": "Always followed by Ram.",
+        "max_consecutive": null,
+        "always_followed_by": "Ram",
+        "is_opener": false
+      },
+      {
+        "name": "Dampen",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "Self",
+        "notes": "Always followed by Magic Bomb.",
+        "max_consecutive": null,
+        "always_followed_by": "Magic Bomb",
+        "is_opener": false
+      },
+      {
+        "name": "Magic Bomb",
+        "hits": 1,
+        "base_dmg": 35,
+        "asc_dmg": 40,
+        "target": "Player",
+        "notes": "Always followed by Ram.",
+        "max_consecutive": null,
+        "always_followed_by": "Ram",
+        "is_opener": false
+      },
+      {
+        "name": "Ram",
+        "hits": 1,
+        "base_dmg": 10,
+        "asc_dmg": 11,
+        "target": "Player",
+        "notes": "Always followed by Dampen.",
+        "max_consecutive": null,
+        "always_followed_by": "Dampen",
+        "is_opener": false
+      }
+    ],
+    "pattern_text": "Shows this enemy's repeating move order. Dampen : While Magi Knight is alive, all your upgraded cards are downgraded.",
+    "needs_review": false,
+    "review_reason": ""
+  },
+  "compiled": {
+    "start_move": "Power Shield",
+    "transitions": {
+      "Power Shield": [
+        [
+          "Dampen",
+          1.0
+        ]
+      ],
+      "Dampen": [
+        [
+          "Magic Bomb",
+          1.0
+        ]
+      ],
+      "Magic Bomb": [
+        [
+          "Ram",
+          1.0
+        ]
+      ],
+      "Ram": [
+        [
+          "Dampen",
+          1.0
+        ]
+      ]
+    }
+  }
+}

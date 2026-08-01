@@ -1,0 +1,75 @@
+{
+  "enemy": {
+    "slug": "spectral-knight",
+    "display_name": "Spectral Knight",
+    "moves": [
+      {
+        "name": "Hex",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "Player",
+        "notes": "Always followed by Soul Slash. Always used at the start of combat.",
+        "max_consecutive": null,
+        "always_followed_by": "Soul Slash",
+        "is_opener": true
+      },
+      {
+        "name": "Soul Slash",
+        "hits": 1,
+        "base_dmg": 15,
+        "asc_dmg": 17,
+        "target": "Player",
+        "notes": "Can be used at most 2 times in a row.",
+        "max_consecutive": 2,
+        "always_followed_by": null,
+        "is_opener": false
+      },
+      {
+        "name": "Soul Flame",
+        "hits": 3,
+        "base_dmg": 3,
+        "asc_dmg": 4,
+        "target": "Player",
+        "notes": "Cannot be used on consecutive turns.",
+        "max_consecutive": 1,
+        "always_followed_by": null,
+        "is_opener": false
+      }
+    ],
+    "pattern_text": "Shows this enemy's repeating move order. Hex : While Spectral Knight is alive, all your cards are ethereal .",
+    "needs_review": true,
+    "review_reason": "No explicit transition found for: ['Soul Slash', 'Soul Flame']. Defaulted to uniform distribution over remaining moves -- verify against the live diagram (percentages may only render in SVG/canvas, not in scraped text)."
+  },
+  "compiled": {
+    "start_move": "Hex",
+    "transitions": {
+      "Hex": [
+        [
+          "Soul Slash",
+          1.0
+        ]
+      ],
+      "Soul Slash": [
+        [
+          "Hex",
+          0.5
+        ],
+        [
+          "Soul Flame",
+          0.5
+        ]
+      ],
+      "Soul Flame": [
+        [
+          "Hex",
+          0.5
+        ],
+        [
+          "Soul Slash",
+          0.5
+        ]
+      ]
+    }
+  }
+}

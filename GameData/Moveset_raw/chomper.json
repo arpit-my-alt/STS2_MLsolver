@@ -1,0 +1,50 @@
+{
+  "enemy": {
+    "slug": "chomper",
+    "display_name": "Chomper",
+    "moves": [
+      {
+        "name": "Clamp",
+        "hits": 2,
+        "base_dmg": 8,
+        "asc_dmg": 9,
+        "target": "Player",
+        "notes": "Always followed by Screech. Always used at the start of combat.",
+        "max_consecutive": null,
+        "always_followed_by": "Screech",
+        "is_opener": true
+      },
+      {
+        "name": "Screech",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "Player",
+        "notes": "Always followed by Clamp. Always used at the start of combat.",
+        "max_consecutive": null,
+        "always_followed_by": "Clamp",
+        "is_opener": true
+      }
+    ],
+    "pattern_text": "Shows this enemy's repeating move order. Starts with Artifact 2",
+    "needs_review": true,
+    "review_reason": "Multiple moves flagged as combat-openers: ['Clamp', 'Screech'] -- likely position-dependent (e.g. front/middle/back in a pack); needs manual disambiguation."
+  },
+  "compiled": {
+    "start_move": "Clamp",
+    "transitions": {
+      "Clamp": [
+        [
+          "Screech",
+          1.0
+        ]
+      ],
+      "Screech": [
+        [
+          "Clamp",
+          1.0
+        ]
+      ]
+    }
+  }
+}

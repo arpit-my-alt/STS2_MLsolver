@@ -1,0 +1,33 @@
+{
+  "enemy": {
+    "slug": "parafright",
+    "display_name": "Parafright",
+    "moves": [
+      {
+        "name": "Slam",
+        "hits": 1,
+        "base_dmg": 16,
+        "asc_dmg": 17,
+        "target": "Player",
+        "notes": "Always used at the start of combat.",
+        "max_consecutive": null,
+        "always_followed_by": null,
+        "is_opener": true
+      }
+    ],
+    "pattern_text": "Shows this enemy's repeating move order. Starts with Illusion .",
+    "needs_review": true,
+    "review_reason": "No explicit transition found for: ['Slam']. Defaulted to uniform distribution over remaining moves -- verify against the live diagram (percentages may only render in SVG/canvas, not in scraped text)."
+  },
+  "compiled": {
+    "start_move": "Slam",
+    "transitions": {
+      "Slam": [
+        [
+          "Slam",
+          1.0
+        ]
+      ]
+    }
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "enemy": {
+    "slug": "exoskeleton",
+    "display_name": "Exoskeleton",
+    "moves": [
+      {
+        "name": "Skitter",
+        "hits": 3,
+        "base_dmg": 1,
+        "asc_dmg": 1,
+        "target": "Player",
+        "notes": "Cannot be used on consecutive turns. Always used at the start of combat. The Exoskeleton in slot 1 starts with this move. Slot 4 starts in a random branch that can also choose this move. In that branch, \"Skitter\" and \"Mandibles\" have equal weight and cannot repeat consecutively.",
+        "max_consecutive": 1,
+        "always_followed_by": null,
+        "is_opener": true
+      },
+      {
+        "name": "Mandibles",
+        "hits": 1,
+        "base_dmg": 8,
+        "asc_dmg": 9,
+        "target": "Player",
+        "notes": "Cannot be used on consecutive turns. Always followed by Enrage. Always used at the start of combat.",
+        "max_consecutive": 1,
+        "always_followed_by": "Enrage",
+        "is_opener": true
+      },
+      {
+        "name": "Enrage",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "Self",
+        "notes": "Always used at the start of combat. The Exoskeleton in slot 3 starts with this move; it also always follows \"Mandibles\". Afterward it enters the \"Skitter\"/\"Mandibles\" random branch.",
+        "max_consecutive": null,
+        "always_followed_by": null,
+        "is_opener": true
+      }
+    ],
+    "pattern_text": "Shows this enemy's repeating move order. Starts with Hard to Kill 9 Hard to Kill X: Reduce all damage taken and HP loss to X.",
+    "needs_review": true,
+    "review_reason": "No explicit transition found for: ['Skitter', 'Enrage']. Defaulted to uniform distribution over remaining moves -- verify against the live diagram (percentages may only render in SVG/canvas, not in scraped text). Multiple moves flagged as combat-openers: ['Skitter', 'Mandibles', 'Enrage'] -- likely position-dependent (e.g. front/middle/back in a pack); needs manual disambiguation."
+  },
+  "compiled": {
+    "start_move": "Skitter",
+    "transitions": {
+      "Mandibles": [
+        [
+          "Enrage",
+          1.0
+        ]
+      ],
+      "Skitter": [
+        [
+          "Mandibles",
+          0.5
+        ],
+        [
+          "Enrage",
+          0.5
+        ]
+      ],
+      "Enrage": [
+        [
+          "Skitter",
+          0.5
+        ],
+        [
+          "Mandibles",
+          0.5
+        ]
+      ]
+    }
+  }
+}

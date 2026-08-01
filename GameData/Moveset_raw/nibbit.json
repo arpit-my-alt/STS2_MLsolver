@@ -1,0 +1,61 @@
+{
+  "enemy": {
+    "slug": "nibbit",
+    "display_name": "Nibbit",
+    "moves": [
+      {
+        "name": "Butt",
+        "hits": 1,
+        "base_dmg": 12,
+        "asc_dmg": 13,
+        "target": "Player",
+        "notes": "Always followed by Butt. Always used at the start of combat. If Nibbit appears alone, it starts with this move. In the normal loop, this also follows \"Hiss\".",
+        "max_consecutive": null,
+        "always_followed_by": "Butt",
+        "is_opener": true
+      },
+      {
+        "name": "Butt",
+        "hits": 1,
+        "base_dmg": 6,
+        "asc_dmg": 7,
+        "target": "Player",
+        "notes": "Always followed by Hiss. Always used at the start of combat. If Nibbit is not alone and is in front, it starts with this move. It is always followed by \"Hiss\".",
+        "max_consecutive": null,
+        "always_followed_by": "Hiss",
+        "is_opener": true
+      },
+      {
+        "name": "Hiss",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "Self",
+        "notes": "Always followed by Butt. Always used at the start of combat. If Nibbit is not alone and is not in front, it starts with this move. It is always followed by \"Butt\".",
+        "max_consecutive": null,
+        "always_followed_by": "Butt",
+        "is_opener": true
+      }
+    ],
+    "pattern_text": "Shows this enemy's repeating move order.",
+    "needs_review": true,
+    "review_reason": "Multiple moves flagged as combat-openers: ['Butt', 'Butt', 'Hiss'] -- likely position-dependent (e.g. front/middle/back in a pack); needs manual disambiguation."
+  },
+  "compiled": {
+    "start_move": "Butt",
+    "transitions": {
+      "Butt": [
+        [
+          "Hiss",
+          1.0
+        ]
+      ],
+      "Hiss": [
+        [
+          "Butt",
+          1.0
+        ]
+      ]
+    }
+  }
+}

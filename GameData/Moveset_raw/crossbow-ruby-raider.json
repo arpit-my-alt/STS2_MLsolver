@@ -1,0 +1,50 @@
+{
+  "enemy": {
+    "slug": "crossbow-ruby-raider",
+    "display_name": "Crossbow Raider",
+    "moves": [
+      {
+        "name": "Fire!",
+        "hits": 1,
+        "base_dmg": 14,
+        "asc_dmg": 16,
+        "target": "Player",
+        "notes": "Always followed by Reload. Always used at the start of combat.",
+        "max_consecutive": null,
+        "always_followed_by": "Reload",
+        "is_opener": true
+      },
+      {
+        "name": "Reload",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "Self",
+        "notes": "Always followed by Fire!. Always used at the start of combat.",
+        "max_consecutive": null,
+        "always_followed_by": null,
+        "is_opener": true
+      }
+    ],
+    "pattern_text": "Shows this enemy's repeating move order.",
+    "needs_review": true,
+    "review_reason": "No explicit transition found for: ['Reload']. Defaulted to uniform distribution over remaining moves -- verify against the live diagram (percentages may only render in SVG/canvas, not in scraped text). Multiple moves flagged as combat-openers: ['Fire!', 'Reload'] -- likely position-dependent (e.g. front/middle/back in a pack); needs manual disambiguation."
+  },
+  "compiled": {
+    "start_move": "Fire!",
+    "transitions": {
+      "Fire!": [
+        [
+          "Reload",
+          1.0
+        ]
+      ],
+      "Reload": [
+        [
+          "Fire!",
+          1.0
+        ]
+      ]
+    }
+  }
+}

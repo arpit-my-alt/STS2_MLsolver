@@ -1,0 +1,84 @@
+{
+  "enemy": {
+    "slug": "kin-priest",
+    "display_name": "Kin Priest",
+    "moves": [
+      {
+        "name": "Orb of Frailty",
+        "hits": 1,
+        "base_dmg": 8,
+        "asc_dmg": 9,
+        "target": "Player",
+        "notes": "Always followed by Orb of Weakness. Always used at the start of combat.",
+        "max_consecutive": null,
+        "always_followed_by": "Orb of Weakness",
+        "is_opener": true
+      },
+      {
+        "name": "Orb of Weakness",
+        "hits": 1,
+        "base_dmg": 8,
+        "asc_dmg": 9,
+        "target": "Player",
+        "notes": "Always followed by Soul Beam.",
+        "max_consecutive": null,
+        "always_followed_by": "Soul Beam",
+        "is_opener": false
+      },
+      {
+        "name": "Soul Beam",
+        "hits": 3,
+        "base_dmg": 3,
+        "asc_dmg": 3,
+        "target": "Player",
+        "notes": "Always followed by Dark Ritual.",
+        "max_consecutive": null,
+        "always_followed_by": "Dark Ritual",
+        "is_opener": false
+      },
+      {
+        "name": "Dark Ritual",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "Self",
+        "notes": "Always followed by Orb of Frailty.",
+        "max_consecutive": null,
+        "always_followed_by": "Orb of Frailty",
+        "is_opener": false
+      }
+    ],
+    "pattern_text": "Shows this enemy's repeating move order.",
+    "needs_review": false,
+    "review_reason": ""
+  },
+  "compiled": {
+    "start_move": "Orb of Frailty",
+    "transitions": {
+      "Orb of Frailty": [
+        [
+          "Orb of Weakness",
+          1.0
+        ]
+      ],
+      "Orb of Weakness": [
+        [
+          "Soul Beam",
+          1.0
+        ]
+      ],
+      "Soul Beam": [
+        [
+          "Dark Ritual",
+          1.0
+        ]
+      ],
+      "Dark Ritual": [
+        [
+          "Orb of Frailty",
+          1.0
+        ]
+      ]
+    }
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "enemy": {
+    "slug": "phrog-parasite",
+    "display_name": "Phrog Parasite",
+    "moves": [
+      {
+        "name": "Infect",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "Player",
+        "notes": "Cannot be used on consecutive turns. Always followed by Lash. Always used at the start of combat.",
+        "max_consecutive": 1,
+        "always_followed_by": "Lash",
+        "is_opener": true
+      },
+      {
+        "name": "Lash",
+        "hits": 4,
+        "base_dmg": 4,
+        "asc_dmg": 5,
+        "target": "Player",
+        "notes": "Cannot be used on consecutive turns. Always followed by Infect.",
+        "max_consecutive": 1,
+        "always_followed_by": "Infect",
+        "is_opener": false
+      }
+    ],
+    "pattern_text": "Shows this enemy's repeating move order. Starts with Infested 4 Infested X: Summons X Wrigglers after dying (they start stunned).",
+    "needs_review": false,
+    "review_reason": ""
+  },
+  "compiled": {
+    "start_move": "Infect",
+    "transitions": {
+      "Infect": [
+        [
+          "Lash",
+          1.0
+        ]
+      ],
+      "Lash": [
+        [
+          "Infect",
+          1.0
+        ]
+      ]
+    }
+  }
+}

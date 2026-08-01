@@ -1,0 +1,71 @@
+{
+  "enemy": {
+    "slug": "axebot",
+    "display_name": "Axebot",
+    "moves": [
+      {
+        "name": "Boot Up",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "Self",
+        "notes": "Always followed by Hammer Uppercut. Always used at the start of combat. Only an Axebot revived by Stock starts from this move. The original Axebot does not open with this and instead starts directly with \"Hammer Uppercut\".",
+        "max_consecutive": null,
+        "always_followed_by": "Hammer Uppercut",
+        "is_opener": true
+      },
+      {
+        "name": "The One-Two",
+        "hits": 2,
+        "base_dmg": 9,
+        "asc_dmg": 10,
+        "target": "Player",
+        "notes": "Always followed by Hammer Uppercut.",
+        "max_consecutive": null,
+        "always_followed_by": "Hammer Uppercut",
+        "is_opener": false
+      },
+      {
+        "name": "Hammer Uppercut",
+        "hits": 1,
+        "base_dmg": 12,
+        "asc_dmg": 14,
+        "target": "Player",
+        "notes": "Always followed by The One-Two. Always used at the start of combat. The original Axebot starts from this move. Only a new Axebot created after death by Stock switches its opener to \"Boot Up\".",
+        "max_consecutive": null,
+        "always_followed_by": null,
+        "is_opener": true
+      }
+    ],
+    "pattern_text": "Shows this enemy's repeating move order. Starts with Stock 2. Stock X: When killed, a new Axebot is summoned in its place (with Stock X - 1).",
+    "needs_review": true,
+    "review_reason": "No explicit transition found for: ['Hammer Uppercut']. Defaulted to uniform distribution over remaining moves -- verify against the live diagram (percentages may only render in SVG/canvas, not in scraped text). Multiple moves flagged as combat-openers: ['Boot Up', 'Hammer Uppercut'] -- likely position-dependent (e.g. front/middle/back in a pack); needs manual disambiguation."
+  },
+  "compiled": {
+    "start_move": "Boot Up",
+    "transitions": {
+      "Boot Up": [
+        [
+          "Hammer Uppercut",
+          1.0
+        ]
+      ],
+      "The One-Two": [
+        [
+          "Hammer Uppercut",
+          1.0
+        ]
+      ],
+      "Hammer Uppercut": [
+        [
+          "Boot Up",
+          0.5
+        ],
+        [
+          "The One-Two",
+          0.5
+        ]
+      ]
+    }
+  }
+}

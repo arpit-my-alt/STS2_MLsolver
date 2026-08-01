@@ -1,0 +1,61 @@
+{
+  "enemy": {
+    "slug": "fuzzy-wurm-crawler",
+    "display_name": "Fuzzy Wurm Crawler",
+    "moves": [
+      {
+        "name": "Acid Goop",
+        "hits": 1,
+        "base_dmg": 4,
+        "asc_dmg": 6,
+        "target": "Player",
+        "notes": "Always followed by Inhale. Always used at the start of combat.",
+        "max_consecutive": null,
+        "always_followed_by": "Inhale",
+        "is_opener": true
+      },
+      {
+        "name": "Acid Goop",
+        "hits": 1,
+        "base_dmg": 4,
+        "asc_dmg": 6,
+        "target": "Player",
+        "notes": "Always followed by Acid Goop.",
+        "max_consecutive": null,
+        "always_followed_by": "Acid Goop",
+        "is_opener": false
+      },
+      {
+        "name": "Inhale",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "Self",
+        "notes": "Always followed by Acid Goop.",
+        "max_consecutive": null,
+        "always_followed_by": "Acid Goop",
+        "is_opener": false
+      }
+    ],
+    "pattern_text": "Shows this enemy's repeating move order.",
+    "needs_review": false,
+    "review_reason": ""
+  },
+  "compiled": {
+    "start_move": "Acid Goop",
+    "transitions": {
+      "Acid Goop": [
+        [
+          "Acid Goop",
+          1.0
+        ]
+      ],
+      "Inhale": [
+        [
+          "Acid Goop",
+          1.0
+        ]
+      ]
+    }
+  }
+}

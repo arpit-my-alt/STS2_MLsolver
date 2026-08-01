@@ -1,0 +1,50 @@
+{
+  "enemy": {
+    "slug": "bowlbug-silk",
+    "display_name": "Bowlbug (Silk)",
+    "moves": [
+      {
+        "name": "Thrash",
+        "hits": 2,
+        "base_dmg": 4,
+        "asc_dmg": 5,
+        "target": "Player",
+        "notes": "Always followed by Toxic Spit. Always used at the start of combat.",
+        "max_consecutive": null,
+        "always_followed_by": "Toxic Spit",
+        "is_opener": true
+      },
+      {
+        "name": "Toxic Spit",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "Player",
+        "notes": "Always followed by Thrash. Always used at the start of combat.",
+        "max_consecutive": null,
+        "always_followed_by": "Thrash",
+        "is_opener": true
+      }
+    ],
+    "pattern_text": "Shows this enemy's repeating move order.",
+    "needs_review": true,
+    "review_reason": "Multiple moves flagged as combat-openers: ['Thrash', 'Toxic Spit'] -- likely position-dependent (e.g. front/middle/back in a pack); needs manual disambiguation."
+  },
+  "compiled": {
+    "start_move": "Thrash",
+    "transitions": {
+      "Thrash": [
+        [
+          "Toxic Spit",
+          1.0
+        ]
+      ],
+      "Toxic Spit": [
+        [
+          "Thrash",
+          1.0
+        ]
+      ]
+    }
+  }
+}

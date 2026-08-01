@@ -1,0 +1,116 @@
+{
+  "enemy": {
+    "slug": "the-obscura",
+    "display_name": "The Obscura",
+    "moves": [
+      {
+        "name": "Illusion",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "\u2014",
+        "notes": "Always used at the start of combat. This move summons Parafright in the illusion slot. After summoning, The Obscura switches to its normal hit and death visuals.",
+        "max_consecutive": null,
+        "always_followed_by": null,
+        "is_opener": true
+      },
+      {
+        "name": "Piercing Gaze",
+        "hits": 1,
+        "base_dmg": 10,
+        "asc_dmg": 11,
+        "target": "Player",
+        "notes": "Cannot be used on consecutive turns.",
+        "max_consecutive": 1,
+        "always_followed_by": null,
+        "is_opener": false
+      },
+      {
+        "name": "Wail",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "Self",
+        "notes": "Cannot be used on consecutive turns.",
+        "max_consecutive": 1,
+        "always_followed_by": null,
+        "is_opener": false
+      },
+      {
+        "name": "Hardening Strike",
+        "hits": 1,
+        "base_dmg": 6,
+        "asc_dmg": 7,
+        "target": "Player",
+        "notes": "Cannot be used on consecutive turns.",
+        "max_consecutive": 1,
+        "always_followed_by": null,
+        "is_opener": false
+      }
+    ],
+    "pattern_text": "Shows this enemy's repeating move order.",
+    "needs_review": true,
+    "review_reason": "No explicit transition found for: ['Illusion', 'Piercing Gaze', 'Wail', 'Hardening Strike']. Defaulted to uniform distribution over remaining moves -- verify against the live diagram (percentages may only render in SVG/canvas, not in scraped text)."
+  },
+  "compiled": {
+    "start_move": "Illusion",
+    "transitions": {
+      "Illusion": [
+        [
+          "Piercing Gaze",
+          0.3333333333333333
+        ],
+        [
+          "Wail",
+          0.3333333333333333
+        ],
+        [
+          "Hardening Strike",
+          0.3333333333333333
+        ]
+      ],
+      "Piercing Gaze": [
+        [
+          "Illusion",
+          0.3333333333333333
+        ],
+        [
+          "Wail",
+          0.3333333333333333
+        ],
+        [
+          "Hardening Strike",
+          0.3333333333333333
+        ]
+      ],
+      "Wail": [
+        [
+          "Illusion",
+          0.3333333333333333
+        ],
+        [
+          "Piercing Gaze",
+          0.3333333333333333
+        ],
+        [
+          "Hardening Strike",
+          0.3333333333333333
+        ]
+      ],
+      "Hardening Strike": [
+        [
+          "Illusion",
+          0.3333333333333333
+        ],
+        [
+          "Piercing Gaze",
+          0.3333333333333333
+        ],
+        [
+          "Wail",
+          0.3333333333333333
+        ]
+      ]
+    }
+  }
+}

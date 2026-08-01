@@ -1,0 +1,79 @@
+{
+  "enemy": {
+    "slug": "mawler",
+    "display_name": "Mawler",
+    "moves": [
+      {
+        "name": "Rip and Tear",
+        "hits": 1,
+        "base_dmg": 14,
+        "asc_dmg": 16,
+        "target": "Player",
+        "notes": "Cannot be used on consecutive turns.",
+        "max_consecutive": 1,
+        "always_followed_by": null,
+        "is_opener": false
+      },
+      {
+        "name": "Roar",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "Player",
+        "notes": "Can only be used once per combat.",
+        "max_consecutive": null,
+        "always_followed_by": null,
+        "is_opener": false
+      },
+      {
+        "name": "Claw",
+        "hits": 2,
+        "base_dmg": 4,
+        "asc_dmg": 5,
+        "target": "Player",
+        "notes": "Cannot be used on consecutive turns. Always used at the start of combat.",
+        "max_consecutive": 1,
+        "always_followed_by": null,
+        "is_opener": true
+      }
+    ],
+    "pattern_text": "Shows this enemy's repeating move order.",
+    "needs_review": true,
+    "review_reason": "No explicit transition found for: ['Rip and Tear', 'Roar', 'Claw']. Defaulted to uniform distribution over remaining moves -- verify against the live diagram (percentages may only render in SVG/canvas, not in scraped text)."
+  },
+  "compiled": {
+    "start_move": "Claw",
+    "transitions": {
+      "Rip and Tear": [
+        [
+          "Roar",
+          0.5
+        ],
+        [
+          "Claw",
+          0.5
+        ]
+      ],
+      "Roar": [
+        [
+          "Rip and Tear",
+          0.5
+        ],
+        [
+          "Claw",
+          0.5
+        ]
+      ],
+      "Claw": [
+        [
+          "Rip and Tear",
+          0.5
+        ],
+        [
+          "Roar",
+          0.5
+        ]
+      ]
+    }
+  }
+}

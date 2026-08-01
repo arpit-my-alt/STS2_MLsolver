@@ -1,0 +1,116 @@
+{
+  "enemy": {
+    "slug": "two-tailed-rat",
+    "display_name": "Two-Tailed Rat",
+    "moves": [
+      {
+        "name": "Scratch",
+        "hits": 1,
+        "base_dmg": 8,
+        "asc_dmg": 9,
+        "target": "Player",
+        "notes": "Cannot be used on consecutive turns. Always used at the start of combat. While summoning is unavailable, these three non-summon moves are chosen at equal weight and cannot repeat consecutively. Each use reduces the summon timer by 1 .",
+        "max_consecutive": 1,
+        "always_followed_by": null,
+        "is_opener": true
+      },
+      {
+        "name": "Disease Bite",
+        "hits": 1,
+        "base_dmg": 6,
+        "asc_dmg": 7,
+        "target": "Player",
+        "notes": "Cannot be used on consecutive turns. Always used at the start of combat. While summoning is unavailable, these three non-summon moves are chosen at equal weight and cannot repeat consecutively. Each use reduces the summon timer by 1 .",
+        "max_consecutive": 1,
+        "always_followed_by": null,
+        "is_opener": true
+      },
+      {
+        "name": "Screech",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "Player",
+        "notes": "Has a 3-turn cooldown after use. Always used at the start of combat. While summoning is unavailable, these three non-summon moves are chosen at equal weight and cannot repeat consecutively. Each use reduces the summon timer by 1 .",
+        "max_consecutive": null,
+        "always_followed_by": null,
+        "is_opener": true
+      },
+      {
+        "name": "Call for Backup",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "\u2014",
+        "notes": "Can only be used once per combat. Always used at the start of combat. Summoning requires all conditions: at least 2 prior actions have passed, the group has used \"Call for Backup\" fewer than 3 times, an empty slot exists, and no other Two-Tailed Rat is already preparing \"Call for Backup\". When summonable, this move has weight 0.75 ; the other three moves each have weight 1/12 .",
+        "max_consecutive": null,
+        "always_followed_by": null,
+        "is_opener": true
+      }
+    ],
+    "pattern_text": "Shows this enemy's repeating move order.",
+    "needs_review": true,
+    "review_reason": "No explicit transition found for: ['Scratch', 'Disease Bite', 'Screech', 'Call for Backup']. Defaulted to uniform distribution over remaining moves -- verify against the live diagram (percentages may only render in SVG/canvas, not in scraped text). Multiple moves flagged as combat-openers: ['Scratch', 'Disease Bite', 'Screech', 'Call for Backup'] -- likely position-dependent (e.g. front/middle/back in a pack); needs manual disambiguation."
+  },
+  "compiled": {
+    "start_move": "Scratch",
+    "transitions": {
+      "Scratch": [
+        [
+          "Disease Bite",
+          0.3333333333333333
+        ],
+        [
+          "Screech",
+          0.3333333333333333
+        ],
+        [
+          "Call for Backup",
+          0.3333333333333333
+        ]
+      ],
+      "Disease Bite": [
+        [
+          "Scratch",
+          0.3333333333333333
+        ],
+        [
+          "Screech",
+          0.3333333333333333
+        ],
+        [
+          "Call for Backup",
+          0.3333333333333333
+        ]
+      ],
+      "Screech": [
+        [
+          "Scratch",
+          0.3333333333333333
+        ],
+        [
+          "Disease Bite",
+          0.3333333333333333
+        ],
+        [
+          "Call for Backup",
+          0.3333333333333333
+        ]
+      ],
+      "Call for Backup": [
+        [
+          "Scratch",
+          0.3333333333333333
+        ],
+        [
+          "Disease Bite",
+          0.3333333333333333
+        ],
+        [
+          "Screech",
+          0.3333333333333333
+        ]
+      ]
+    }
+  }
+}

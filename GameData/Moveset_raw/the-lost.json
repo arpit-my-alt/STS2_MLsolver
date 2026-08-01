@@ -1,0 +1,50 @@
+{
+  "enemy": {
+    "slug": "the-lost",
+    "display_name": "The Lost",
+    "moves": [
+      {
+        "name": "Debilitating Smog",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "Self",
+        "notes": "Always followed by Eye Lasers. Always used at the start of combat.",
+        "max_consecutive": null,
+        "always_followed_by": "Eye Lasers",
+        "is_opener": true
+      },
+      {
+        "name": "Eye Lasers",
+        "hits": 2,
+        "base_dmg": 4,
+        "asc_dmg": 5,
+        "target": "Player",
+        "notes": "Always followed by Debilitating Smog.",
+        "max_consecutive": null,
+        "always_followed_by": "Debilitating Smog",
+        "is_opener": false
+      }
+    ],
+    "pattern_text": "Shows this enemy's repeating move order.",
+    "needs_review": false,
+    "review_reason": ""
+  },
+  "compiled": {
+    "start_move": "Debilitating Smog",
+    "transitions": {
+      "Debilitating Smog": [
+        [
+          "Eye Lasers",
+          1.0
+        ]
+      ],
+      "Eye Lasers": [
+        [
+          "Debilitating Smog",
+          1.0
+        ]
+      ]
+    }
+  }
+}

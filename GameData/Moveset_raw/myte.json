@@ -1,0 +1,67 @@
+{
+  "enemy": {
+    "slug": "myte",
+    "display_name": "Myte",
+    "moves": [
+      {
+        "name": "Toxic Cornucopia",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "Player",
+        "notes": "Always followed by Bite. Always used at the start of combat.",
+        "max_consecutive": null,
+        "always_followed_by": "Bite",
+        "is_opener": true
+      },
+      {
+        "name": "Bite",
+        "hits": 1,
+        "base_dmg": 13,
+        "asc_dmg": 15,
+        "target": "Player",
+        "notes": "Always followed by Suck.",
+        "max_consecutive": null,
+        "always_followed_by": "Suck",
+        "is_opener": false
+      },
+      {
+        "name": "Suck",
+        "hits": 1,
+        "base_dmg": 4,
+        "asc_dmg": 6,
+        "target": "Player",
+        "notes": "Always followed by Toxic Cornucopia. Always used at the start of combat.",
+        "max_consecutive": null,
+        "always_followed_by": "Toxic Cornucopia",
+        "is_opener": true
+      }
+    ],
+    "pattern_text": "Shows this enemy's repeating move order. Toxic (status): At the end of your turn, take 5 damage if this is in your hand . 1 cost, exhausts.",
+    "needs_review": true,
+    "review_reason": "Multiple moves flagged as combat-openers: ['Toxic Cornucopia', 'Suck'] -- likely position-dependent (e.g. front/middle/back in a pack); needs manual disambiguation."
+  },
+  "compiled": {
+    "start_move": "Toxic Cornucopia",
+    "transitions": {
+      "Toxic Cornucopia": [
+        [
+          "Bite",
+          1.0
+        ]
+      ],
+      "Bite": [
+        [
+          "Suck",
+          1.0
+        ]
+      ],
+      "Suck": [
+        [
+          "Toxic Cornucopia",
+          1.0
+        ]
+      ]
+    }
+  }
+}

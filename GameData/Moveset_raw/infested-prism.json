@@ -1,0 +1,84 @@
+{
+  "enemy": {
+    "slug": "infested-prism",
+    "display_name": "Infested Prism",
+    "moves": [
+      {
+        "name": "Jab",
+        "hits": 1,
+        "base_dmg": 22,
+        "asc_dmg": 24,
+        "target": "Player",
+        "notes": "Always followed by Radiate. Always used at the start of combat.",
+        "max_consecutive": null,
+        "always_followed_by": "Radiate",
+        "is_opener": true
+      },
+      {
+        "name": "Radiate",
+        "hits": 1,
+        "base_dmg": 16,
+        "asc_dmg": 18,
+        "target": "Player",
+        "notes": "Always followed by Whirlwind.",
+        "max_consecutive": null,
+        "always_followed_by": "Whirlwind",
+        "is_opener": false
+      },
+      {
+        "name": "Whirlwind",
+        "hits": 3,
+        "base_dmg": 9,
+        "asc_dmg": 10,
+        "target": "Player",
+        "notes": "Always followed by Pulsate.",
+        "max_consecutive": null,
+        "always_followed_by": "Pulsate",
+        "is_opener": false
+      },
+      {
+        "name": "Pulsate",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "Self",
+        "notes": "Always followed by Jab.",
+        "max_consecutive": null,
+        "always_followed_by": "Jab",
+        "is_opener": false
+      }
+    ],
+    "pattern_text": "Shows this enemy's repeating move order. Starts with Vital Spark 1 Vital Spark X: The first time Infected Prism takes attack damage each turn, the attacked gains X energy .",
+    "needs_review": false,
+    "review_reason": ""
+  },
+  "compiled": {
+    "start_move": "Jab",
+    "transitions": {
+      "Jab": [
+        [
+          "Radiate",
+          1.0
+        ]
+      ],
+      "Radiate": [
+        [
+          "Whirlwind",
+          1.0
+        ]
+      ],
+      "Whirlwind": [
+        [
+          "Pulsate",
+          1.0
+        ]
+      ],
+      "Pulsate": [
+        [
+          "Jab",
+          1.0
+        ]
+      ]
+    }
+  }
+}

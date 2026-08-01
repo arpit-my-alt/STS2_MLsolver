@@ -1,0 +1,79 @@
+{
+  "enemy": {
+    "slug": "fabricator",
+    "display_name": "Fabricator",
+    "moves": [
+      {
+        "name": "Fabricate",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "\u2014",
+        "notes": "Always used at the start of combat. This branch is only chosen while fewer than 3 other enemy allies are alive. The move creates 1 defensive bot and 1 offensive bot, and it avoids spawning the same bot twice in a row.",
+        "max_consecutive": null,
+        "always_followed_by": null,
+        "is_opener": true
+      },
+      {
+        "name": "Fabricating Strike",
+        "hits": 1,
+        "base_dmg": 18,
+        "asc_dmg": 21,
+        "target": "Player",
+        "notes": "Always used at the start of combat. This branch is only chosen while fewer than 3 other enemy allies are alive. The move attacks, then creates 1 offensive bot, and it avoids spawning the same bot twice in a row.",
+        "max_consecutive": null,
+        "always_followed_by": null,
+        "is_opener": true
+      },
+      {
+        "name": "Disintegrate",
+        "hits": 1,
+        "base_dmg": 11,
+        "asc_dmg": 13,
+        "target": "Player",
+        "notes": "Always used at the start of combat. If 3 other enemy allies are already alive, Fabricator stops fabricating and uses this attack instead.",
+        "max_consecutive": null,
+        "always_followed_by": null,
+        "is_opener": true
+      }
+    ],
+    "pattern_text": "Shows this enemy's repeating move order.",
+    "needs_review": true,
+    "review_reason": "No explicit transition found for: ['Fabricate', 'Fabricating Strike', 'Disintegrate']. Defaulted to uniform distribution over remaining moves -- verify against the live diagram (percentages may only render in SVG/canvas, not in scraped text). Multiple moves flagged as combat-openers: ['Fabricate', 'Fabricating Strike', 'Disintegrate'] -- likely position-dependent (e.g. front/middle/back in a pack); needs manual disambiguation."
+  },
+  "compiled": {
+    "start_move": "Fabricate",
+    "transitions": {
+      "Fabricate": [
+        [
+          "Fabricating Strike",
+          0.5
+        ],
+        [
+          "Disintegrate",
+          0.5
+        ]
+      ],
+      "Fabricating Strike": [
+        [
+          "Fabricate",
+          0.5
+        ],
+        [
+          "Disintegrate",
+          0.5
+        ]
+      ],
+      "Disintegrate": [
+        [
+          "Fabricate",
+          0.5
+        ],
+        [
+          "Fabricating Strike",
+          0.5
+        ]
+      ]
+    }
+  }
+}

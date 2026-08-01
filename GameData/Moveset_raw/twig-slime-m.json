@@ -1,0 +1,50 @@
+{
+  "enemy": {
+    "slug": "twig-slime-m",
+    "display_name": "Twig Slime (M)",
+    "moves": [
+      {
+        "name": "Pokey Pounce",
+        "hits": 1,
+        "base_dmg": 11,
+        "asc_dmg": 12,
+        "target": "Player",
+        "notes": "Can be used at most 2 times in a row.",
+        "max_consecutive": 2,
+        "always_followed_by": null,
+        "is_opener": false
+      },
+      {
+        "name": "Sticky Shot",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "Player",
+        "notes": "Cannot be used on consecutive turns. Always used at the start of combat.",
+        "max_consecutive": 1,
+        "always_followed_by": null,
+        "is_opener": true
+      }
+    ],
+    "pattern_text": "Shows this enemy's repeating move order.",
+    "needs_review": true,
+    "review_reason": "No explicit transition found for: ['Pokey Pounce', 'Sticky Shot']. Defaulted to uniform distribution over remaining moves -- verify against the live diagram (percentages may only render in SVG/canvas, not in scraped text)."
+  },
+  "compiled": {
+    "start_move": "Sticky Shot",
+    "transitions": {
+      "Pokey Pounce": [
+        [
+          "Sticky Shot",
+          1.0
+        ]
+      ],
+      "Sticky Shot": [
+        [
+          "Pokey Pounce",
+          1.0
+        ]
+      ]
+    }
+  }
+}

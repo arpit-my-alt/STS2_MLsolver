@@ -1,0 +1,75 @@
+{
+  "enemy": {
+    "slug": "entomancer",
+    "display_name": "Entomancer",
+    "moves": [
+      {
+        "name": "Pheromone Spit",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "Self",
+        "notes": "Always followed by Beeeees!.",
+        "max_consecutive": null,
+        "always_followed_by": null,
+        "is_opener": false
+      },
+      {
+        "name": "Beeeees!",
+        "hits": 7,
+        "base_dmg": 3,
+        "asc_dmg": 3,
+        "target": "Player",
+        "notes": "Always followed by Spear!. Always used at the start of combat.",
+        "max_consecutive": null,
+        "always_followed_by": null,
+        "is_opener": true
+      },
+      {
+        "name": "Spear!",
+        "hits": 1,
+        "base_dmg": 18,
+        "asc_dmg": 20,
+        "target": "Player",
+        "notes": "Always followed by Pheromone Spit.",
+        "max_consecutive": null,
+        "always_followed_by": "Pheromone Spit",
+        "is_opener": false
+      }
+    ],
+    "pattern_text": "Shows this enemy's repeating move order. Starts with Personal Hive 1 Personal Hive X: Add X Dazed to the draw pile whenever hit by an attack.",
+    "needs_review": true,
+    "review_reason": "No explicit transition found for: ['Pheromone Spit', 'Beeeees!']. Defaulted to uniform distribution over remaining moves -- verify against the live diagram (percentages may only render in SVG/canvas, not in scraped text)."
+  },
+  "compiled": {
+    "start_move": "Beeeees!",
+    "transitions": {
+      "Spear!": [
+        [
+          "Pheromone Spit",
+          1.0
+        ]
+      ],
+      "Pheromone Spit": [
+        [
+          "Beeeees!",
+          0.5
+        ],
+        [
+          "Spear!",
+          0.5
+        ]
+      ],
+      "Beeeees!": [
+        [
+          "Pheromone Spit",
+          0.5
+        ],
+        [
+          "Spear!",
+          0.5
+        ]
+      ]
+    }
+  }
+}

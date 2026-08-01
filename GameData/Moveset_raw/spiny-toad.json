@@ -1,0 +1,67 @@
+{
+  "enemy": {
+    "slug": "spiny-toad",
+    "display_name": "Spiny Toad",
+    "moves": [
+      {
+        "name": "Protruding Spikes",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "Self",
+        "notes": "Always followed by Spike Explosion. Always used at the start of combat.",
+        "max_consecutive": null,
+        "always_followed_by": "Spike Explosion",
+        "is_opener": true
+      },
+      {
+        "name": "Spike Explosion",
+        "hits": 1,
+        "base_dmg": 23,
+        "asc_dmg": 25,
+        "target": "Player",
+        "notes": "Always followed by Tongue Lash.",
+        "max_consecutive": null,
+        "always_followed_by": "Tongue Lash",
+        "is_opener": false
+      },
+      {
+        "name": "Tongue Lash",
+        "hits": 1,
+        "base_dmg": 17,
+        "asc_dmg": 19,
+        "target": "Player",
+        "notes": "Always followed by Protruding Spikes.",
+        "max_consecutive": null,
+        "always_followed_by": "Protruding Spikes",
+        "is_opener": false
+      }
+    ],
+    "pattern_text": "Shows this enemy's repeating move order.",
+    "needs_review": false,
+    "review_reason": ""
+  },
+  "compiled": {
+    "start_move": "Protruding Spikes",
+    "transitions": {
+      "Protruding Spikes": [
+        [
+          "Spike Explosion",
+          1.0
+        ]
+      ],
+      "Spike Explosion": [
+        [
+          "Tongue Lash",
+          1.0
+        ]
+      ],
+      "Tongue Lash": [
+        [
+          "Protruding Spikes",
+          1.0
+        ]
+      ]
+    }
+  }
+}

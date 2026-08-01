@@ -1,0 +1,84 @@
+{
+  "enemy": {
+    "slug": "owl-magistrate",
+    "display_name": "Owl Magistrate",
+    "moves": [
+      {
+        "name": "Magistrate Scrutiny",
+        "hits": 1,
+        "base_dmg": 16,
+        "asc_dmg": 17,
+        "target": "Player",
+        "notes": "Always followed by Peck Assault. Always used at the start of combat.",
+        "max_consecutive": null,
+        "always_followed_by": "Peck Assault",
+        "is_opener": true
+      },
+      {
+        "name": "Peck Assault",
+        "hits": 6,
+        "base_dmg": 4,
+        "asc_dmg": 4,
+        "target": "Player",
+        "notes": "Always followed by Judicial Flight.",
+        "max_consecutive": null,
+        "always_followed_by": "Judicial Flight",
+        "is_opener": false
+      },
+      {
+        "name": "Judicial Flight",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "Self",
+        "notes": "Always followed by Verdict.",
+        "max_consecutive": null,
+        "always_followed_by": "Verdict",
+        "is_opener": false
+      },
+      {
+        "name": "Verdict",
+        "hits": 1,
+        "base_dmg": 33,
+        "asc_dmg": 36,
+        "target": "Player",
+        "notes": "Always followed by Magistrate Scrutiny.",
+        "max_consecutive": null,
+        "always_followed_by": "Magistrate Scrutiny",
+        "is_opener": false
+      }
+    ],
+    "pattern_text": "Shows this enemy's repeating move order. Soar : Receives 50% less attack damage until it lands.",
+    "needs_review": false,
+    "review_reason": ""
+  },
+  "compiled": {
+    "start_move": "Magistrate Scrutiny",
+    "transitions": {
+      "Magistrate Scrutiny": [
+        [
+          "Peck Assault",
+          1.0
+        ]
+      ],
+      "Peck Assault": [
+        [
+          "Judicial Flight",
+          1.0
+        ]
+      ],
+      "Judicial Flight": [
+        [
+          "Verdict",
+          1.0
+        ]
+      ],
+      "Verdict": [
+        [
+          "Magistrate Scrutiny",
+          1.0
+        ]
+      ]
+    }
+  }
+}

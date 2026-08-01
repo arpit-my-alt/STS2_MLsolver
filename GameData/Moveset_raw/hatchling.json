@@ -1,0 +1,14 @@
+{
+  "enemy": {
+    "slug": "hatchling",
+    "display_name": "Hatchling",
+    "moves": [],
+    "pattern_text": "",
+    "needs_review": true,
+    "review_reason": "No move table found -- page structure may differ from expected, or content is client-rendered and not present in the raw GET response."
+  },
+  "compiled": {
+    "start_move": "",
+    "transitions": {}
+  }
+}

@@ -1,0 +1,84 @@
+{
+  "enemy": {
+    "slug": "doormaker",
+    "display_name": "Doormaker",
+    "moves": [
+      {
+        "name": "Grasp",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "\u2014",
+        "notes": "Always followed by Hunger. Always used at the start of combat. Doormaker starts as the Door with infinite HP. This move restores its real HP, removes temporary powers, and enters the \"Hunger\" phase.",
+        "max_consecutive": null,
+        "always_followed_by": "Hunger",
+        "is_opener": true
+      },
+      {
+        "name": "Hunger",
+        "hits": 1,
+        "base_dmg": 30,
+        "asc_dmg": 35,
+        "target": "Player",
+        "notes": "Always followed by Scrutiny. After attacking, Doormaker switches to the \"Scrutiny\" phase. The \"Hunger\" phase exhausts your played Attack and Skill cards.",
+        "max_consecutive": null,
+        "always_followed_by": "Scrutiny",
+        "is_opener": false
+      },
+      {
+        "name": "Scrutiny",
+        "hits": 1,
+        "base_dmg": 24,
+        "asc_dmg": 26,
+        "target": "Player",
+        "notes": "Always followed by Dramatic Open. After attacking, Doormaker switches to the \"Grasp\" phase. The \"Scrutiny\" phase prevents you from drawing additional cards during your turn.",
+        "max_consecutive": null,
+        "always_followed_by": "Dramatic Open",
+        "is_opener": false
+      },
+      {
+        "name": "Dramatic Open",
+        "hits": 2,
+        "base_dmg": 10,
+        "asc_dmg": 11,
+        "target": "Player",
+        "notes": "Always followed by Hunger. Whenever you play a card, lose 1 Energy. After this move, Doormaker returns to the \"Hunger\" phase. This move now hits for 10(11) x2 and gives Doormaker 3(4) Strength .",
+        "max_consecutive": null,
+        "always_followed_by": "Hunger",
+        "is_opener": false
+      }
+    ],
+    "pattern_text": "Shows this enemy's repeating move order. Removed from live Act 3 boss pool in Beta v0.105 (replaced by Aeon glass ). This page is kept for historical reference.",
+    "needs_review": false,
+    "review_reason": ""
+  },
+  "compiled": {
+    "start_move": "Grasp",
+    "transitions": {
+      "Grasp": [
+        [
+          "Hunger",
+          1.0
+        ]
+      ],
+      "Hunger": [
+        [
+          "Scrutiny",
+          1.0
+        ]
+      ],
+      "Scrutiny": [
+        [
+          "Dramatic Open",
+          1.0
+        ]
+      ],
+      "Dramatic Open": [
+        [
+          "Hunger",
+          1.0
+        ]
+      ]
+    }
+  }
+}

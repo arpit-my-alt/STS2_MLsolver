@@ -1,0 +1,50 @@
+{
+  "enemy": {
+    "slug": "the-forgotten",
+    "display_name": "The Forgotten",
+    "moves": [
+      {
+        "name": "Miasma",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "Self",
+        "notes": "Always followed by Dread. Always used at the start of combat.",
+        "max_consecutive": null,
+        "always_followed_by": "Dread",
+        "is_opener": true
+      },
+      {
+        "name": "Dread",
+        "hits": 0,
+        "base_dmg": 0,
+        "asc_dmg": 0,
+        "target": "\u2014",
+        "notes": "Always followed by Miasma.",
+        "max_consecutive": null,
+        "always_followed_by": "Miasma",
+        "is_opener": false
+      }
+    ],
+    "pattern_text": "Shows this enemy's repeating move order.",
+    "needs_review": false,
+    "review_reason": ""
+  },
+  "compiled": {
+    "start_move": "Miasma",
+    "transitions": {
+      "Miasma": [
+        [
+          "Dread",
+          1.0
+        ]
+      ],
+      "Dread": [
+        [
+          "Miasma",
+          1.0
+        ]
+      ]
+    }
+  }
+}

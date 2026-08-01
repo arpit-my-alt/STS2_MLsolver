@@ -1,0 +1,67 @@
+{
+  "enemy": {
+    "slug": "gremlin-merc",
+    "display_name": "Gremlin Merc",
+    "moves": [
+      {
+        "name": "Gimme",
+        "hits": 2,
+        "base_dmg": 7,
+        "asc_dmg": 8,
+        "target": "Player",
+        "notes": "Always followed by Double Smash. Always used at the start of combat.",
+        "max_consecutive": null,
+        "always_followed_by": "Double Smash",
+        "is_opener": true
+      },
+      {
+        "name": "Double Smash",
+        "hits": 2,
+        "base_dmg": 6,
+        "asc_dmg": 7,
+        "target": "Player",
+        "notes": "Always followed by Hehe.",
+        "max_consecutive": null,
+        "always_followed_by": "Hehe",
+        "is_opener": false
+      },
+      {
+        "name": "Hehe",
+        "hits": 1,
+        "base_dmg": 8,
+        "asc_dmg": 9,
+        "target": "Player",
+        "notes": "Always followed by Gimme.",
+        "max_consecutive": null,
+        "always_followed_by": "Gimme",
+        "is_opener": false
+      }
+    ],
+    "pattern_text": "Shows this enemy's repeating move order. Starts with Surprise and Thievery 20 Surprise : When killed, summons 1 Sneaky Gremlin and 1 Fat Gremlin (they start stunned) Thievery X: Steals X gold when attacking (stolen gold is held by Fat Gremlin once summoned)",
+    "needs_review": false,
+    "review_reason": ""
+  },
+  "compiled": {
+    "start_move": "Gimme",
+    "transitions": {
+      "Gimme": [
+        [
+          "Double Smash",
+          1.0
+        ]
+      ],
+      "Double Smash": [
+        [
+          "Hehe",
+          1.0
+        ]
+      ],
+      "Hehe": [
+        [
+          "Gimme",
+          1.0
+        ]
+      ]
+    }
+  }
+}
