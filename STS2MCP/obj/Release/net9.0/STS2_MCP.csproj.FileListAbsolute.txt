@@ -1,0 +1,13 @@
+C:\Users\arpit\STS2MCP\out\STS2_MCP\STS2_MCP.deps.json
+C:\Users\arpit\STS2MCP\out\STS2_MCP\STS2_MCP.dll
+C:\Users\arpit\STS2MCP\out\STS2_MCP\STS2_MCP.pdb
+C:\Users\arpit\STS2MCP\obj\Release\net9.0\STS2_MCP.csproj.AssemblyReference.cache
+C:\Users\arpit\STS2MCP\obj\Release\net9.0\STS2_MCP.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\arpit\STS2MCP\obj\Release\net9.0\STS2_MCP.AssemblyInfoInputs.cache
+C:\Users\arpit\STS2MCP\obj\Release\net9.0\STS2_MCP.AssemblyInfo.cs
+C:\Users\arpit\STS2MCP\obj\Release\net9.0\STS2_MCP.csproj.CoreCompileInputs.cache
+C:\Users\arpit\STS2MCP\obj\Release\net9.0\STS2_MCP.sourcelink.json
+C:\Users\arpit\STS2MCP\obj\Release\net9.0\STS2_MCP.dll
+C:\Users\arpit\STS2MCP\obj\Release\net9.0\refint\STS2_MCP.dll
+C:\Users\arpit\STS2MCP\obj\Release\net9.0\STS2_MCP.pdb
+C:\Users\arpit\STS2MCP\obj\Release\net9.0\ref\STS2_MCP.dll
