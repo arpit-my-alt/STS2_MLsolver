@@ -1,0 +1,242 @@
+"""
+Unified static database of "moves" -- the shared schema for both player
+cards and enemy AI moves, since structurally they're the same thing: an
+actor performs a targeted effect, optionally with a stronger variant.
+
+- Cards: is_upgraded is a real player choice (Bash -> Bash+).
+- Enemy moves: is_upgraded represents "the ascension-boosted variant" --
+  see ascension_threshold, which cards don't use at all (always None there).
+
+Keyed by (id, is_upgraded). Enemy move ids are namespaced by enemy
+(enemy_move_id()) since move NAMES aren't globally unique the way card ids
+are -- multiple enemies can independently have a "Slash" or "Bite".
+
+sts2_state.py's EnemyMoveset only stores the TRANSITION GRAPH (which move
+follows which, at what probability) -- the moves themselves, and everything
+about what a move actually does, lives here instead.
+"""
+
+from __future__ import annotations
+
+from dataclasses import dataclass, field
+from enum import Enum
+import re
+
+
+class TargetType(Enum):
+    NONE = "None"
+    SELF = "Self"
+    ANY_ENEMY = "AnyEnemy"
+    ALL_ENEMIES = "AllEnemies"
+    ANY_PLAYER = "AnyPlayer"   # also used for enemy moves targeting the player -- single-player scope, no ambiguity
+
+
+def to_id(name: str) -> str:
+    """'Piercing Gaze' -> 'PIERCING_GAZE'."""
+    s = re.sub(r"[^A-Za-z0-9]+", "_", name).strip("_")
+    return s.upper()
+
+
+def enemy_move_id(enemy_base_id: str, move_name: str, occurrence: int = 1) -> str:
+    """Namespaces an enemy move id by enemy, e.g. ('INKLET', 'Jab') ->
+    'INKLET_JAB'. Always use this rather than bare to_id() for enemy moves
+    so different enemies' identically-named moves don't collide in the
+    shared MOVES_DB.
+
+    occurrence: some enemies have MULTIPLE table rows sharing the same
+    display name but representing mechanically different moves (e.g.
+    Ceremonial Beast has two distinct "Beast Cry" rows -- an empty
+    stun-trigger stub and a real attack). Pass occurrence=2, 3, ... for the
+    2nd+ occurrence of a repeated name within one enemy's move table to get
+    a distinct id (e.g. 'CEREMONIAL_BEAST_BEAST_CRY_2'); the 1st occurrence
+    keeps the plain, unsuffixed id for backward compatibility."""
+    base = f"{to_id(enemy_base_id)}_{to_id(move_name)}"
+    return base if occurrence <= 1 else f"{base}_{occurrence}"
+
+
+@dataclass(frozen=True)
+class Move:
+    id: str
+    is_upgraded: bool = False
+    hits: int = 1
+    dmg: int = 0
+    target: TargetType = TargetType.NONE
+    card_type: str | None = None   # "Attack"/"Skill"/"Power"/"Curse"/"Status" for cards; None for enemy moves
+    keywords: tuple = ()
+    # (op_name, kwargs) pairs -- the shared primitive-op vocabulary the
+    # simulator's resolver interprets for BOTH cards and enemy moves.
+    effects: tuple = ()
+    # Enemy-move-only AI constraint (cap on repeats in a row, e.g. "max 2
+    # Jabs in a row"). None for cards, or enemy moves with no such cap.
+    max_consecutive: int | None = None
+    # Enemy-move-only: after use, this move is ineligible for this many
+    # SUBSEQUENT turns regardless of what else is played in between (a
+    # stronger constraint than max_consecutive -- e.g. Two-Tailed Rat's
+    # Screech has a 3-turn cooldown, not just "can't repeat immediately").
+    cooldown_turns: int | None = None
+    # Enemy-move-only: this move can be selected at most this many times
+    # total in one combat (e.g. Two-Tailed Rat's Call for Backup, once per
+    # combat). None = unlimited.
+    max_uses_per_combat: int | None = None
+    # Enemy-move-only: the ascension at/above which THIS (is_upgraded=True)
+    # variant is used instead of the base one. None for cards (whose
+    # is_upgraded is a direct player choice, not ascension-gated).
+    ascension_threshold: int | None = None
+    # Enemy-move-only: dynamic scaling per use THIS COMBAT (e.g. Waterfall
+    # Giant's Pressure Gun: starts at base dmg, +5 every subsequent use;
+    # Test Subject's Multi-Claw: starts at base hits, +1 every subsequent
+    # use). 0 for the overwhelming majority of moves, which don't scale.
+    # Use get_enemy_move_scaled() below rather than get_enemy_move() for
+    # any move where either of these is nonzero.
+    dmg_increment_per_use: int = 0
+    hits_increment_per_use: int = 0
+
+
+MOVES_DB: dict[tuple[str, bool], Move] = {
+    # ---- cards ----
+    ("DECAY", False): Move(
+        "DECAY", card_type="Curse", target=TargetType.NONE, keywords=("Unplayable",),
+        effects=(("end_turn_self_damage", {"amount": 2}),),
+    ),
+    ("COUNTDOWN", False): Move(
+        "COUNTDOWN", card_type="Power", target=TargetType.SELF, keywords=("Doom",),
+        effects=(("apply_doom", {"amount": 6, "target": "random_enemy", "timing": "start_of_turn"}),),
+    ),
+    ("DREDGE", False): Move(
+        "DREDGE", card_type="Skill", target=TargetType.SELF, keywords=("Exhaust",),
+        effects=(("discard_to_hand", {"n": 3}), ("exhaust_self", {})),
+    ),
+    ("SCOURGE", False): Move(
+        "SCOURGE", card_type="Skill", target=TargetType.ANY_ENEMY, keywords=("Doom",),
+        effects=(("apply_doom", {"amount": 13, "target": "chosen"}), ("draw", {"n": 1})),
+    ),
+    ("FRIENDSHIP", False): Move(
+        "FRIENDSHIP", card_type="Power", target=TargetType.SELF, keywords=("Energy",),
+        effects=(("lose_strength", {"amount": 2}), ("gain_energy", {"amount": 1, "timing": "start_of_turn"})),
+    ),
+    ("DOUBT", False): Move(
+        "DOUBT", card_type="Curse", target=TargetType.NONE, keywords=("Unplayable",),
+        effects=(("end_turn_self_status", {"status_id": "WEAK", "amount": 1}),),
+    ),
+    # add more cards as you encounter them -- consider a one-time scrape of
+    # every card_reward/hand/draw_pile/shop payload across a few runs to
+    # build a worklist of (id, is_upgraded) pairs, rather than hand-typing
+    # all ~200+ from memory.
+
+    # ---- enemy moves (namespaced via enemy_move_id -- see docstring) ----
+    ("INKLET_JAB", False): Move("INKLET_JAB", hits=1, dmg=3, target=TargetType.ANY_PLAYER, max_consecutive=2),
+    ("INKLET_JAB", True): Move("INKLET_JAB", is_upgraded=True, hits=1, dmg=4, target=TargetType.ANY_PLAYER, max_consecutive=2, ascension_threshold=1),
+    ("INKLET_WHIRLWIND", False): Move("INKLET_WHIRLWIND", hits=3, dmg=2, target=TargetType.ANY_PLAYER, max_consecutive=1),
+    ("INKLET_WHIRLWIND", True): Move("INKLET_WHIRLWIND", is_upgraded=True, hits=3, dmg=3, target=TargetType.ANY_PLAYER, max_consecutive=1, ascension_threshold=1),
+    ("INKLET_PIERCING_GAZE", False): Move("INKLET_PIERCING_GAZE", hits=1, dmg=10, target=TargetType.ANY_PLAYER, max_consecutive=1),
+    ("INKLET_PIERCING_GAZE", True): Move("INKLET_PIERCING_GAZE", is_upgraded=True, hits=1, dmg=11, target=TargetType.ANY_PLAYER, max_consecutive=1, ascension_threshold=1),
+
+    ("WRIGGLER_NASTY_BITE", False): Move("WRIGGLER_NASTY_BITE", hits=1, dmg=6, target=TargetType.ANY_PLAYER, max_consecutive=1),
+    ("WRIGGLER_NASTY_BITE", True): Move("WRIGGLER_NASTY_BITE", is_upgraded=True, hits=1, dmg=7, target=TargetType.ANY_PLAYER, max_consecutive=1, ascension_threshold=1),
+    ("WRIGGLER_WRIGGLE", False): Move("WRIGGLER_WRIGGLE", hits=0, dmg=0, target=TargetType.SELF, max_consecutive=1),
+    ("WRIGGLER_SPAWNED", False): Move("WRIGGLER_SPAWNED", hits=0, dmg=0, target=TargetType.NONE, max_consecutive=1),
+
+    ("WATERFALL_GIANT_PRESSURIZE", False): Move("WATERFALL_GIANT_PRESSURIZE", hits=0, dmg=0, target=TargetType.SELF, max_consecutive=1),
+    ("WATERFALL_GIANT_STOMP", False): Move(
+        "WATERFALL_GIANT_STOMP", hits=1, dmg=15, target=TargetType.ANY_PLAYER, max_consecutive=1,
+        # NOTE: Weak amount unconfirmed -- verify before trusting in the simulator.
+        effects=(("apply_status", {"status_id": "WEAK", "amount": 1, "target": "player"}),),
+    ),
+    ("WATERFALL_GIANT_STOMP", True): Move(
+        "WATERFALL_GIANT_STOMP", is_upgraded=True, hits=1, dmg=16, target=TargetType.ANY_PLAYER, max_consecutive=1, ascension_threshold=1,
+        effects=(("apply_status", {"status_id": "WEAK", "amount": 1, "target": "player"}),),
+    ),
+    ("WATERFALL_GIANT_RAM", False): Move("WATERFALL_GIANT_RAM", hits=1, dmg=10, target=TargetType.ANY_PLAYER, max_consecutive=1),
+    ("WATERFALL_GIANT_RAM", True): Move("WATERFALL_GIANT_RAM", is_upgraded=True, hits=1, dmg=11, target=TargetType.ANY_PLAYER, max_consecutive=1, ascension_threshold=1),
+    ("WATERFALL_GIANT_SIPHON", False): Move(
+        "WATERFALL_GIANT_SIPHON", hits=0, dmg=0, target=TargetType.SELF, max_consecutive=1,
+        effects=(("heal", {"amount": 15, "target": "self", "multiply_by_player_count": True}),),
+    ),
+    # NOTE: Pressure Gun's damage is dynamic (starts at 20/23, +5 each
+    # subsequent use) -- this DB can't express a running counter. The dmg
+    # value here is the FIRST-use value only; the simulator must track
+    # "times used this fight" itself and add 5 per prior use on top of this.
+    ("WATERFALL_GIANT_PRESSURE_GUN", False): Move("WATERFALL_GIANT_PRESSURE_GUN", hits=0, dmg=20, target=TargetType.SELF, max_consecutive=1),
+    ("WATERFALL_GIANT_PRESSURE_GUN", True): Move("WATERFALL_GIANT_PRESSURE_GUN", is_upgraded=True, hits=0, dmg=23, target=TargetType.SELF, max_consecutive=1, ascension_threshold=1),
+    ("WATERFALL_GIANT_PRESSURE_UP", False): Move("WATERFALL_GIANT_PRESSURE_UP", hits=1, dmg=13, target=TargetType.ANY_PLAYER, max_consecutive=1),
+    ("WATERFALL_GIANT_PRESSURE_UP", True): Move("WATERFALL_GIANT_PRESSURE_UP", is_upgraded=True, hits=1, dmg=14, target=TargetType.ANY_PLAYER, max_consecutive=1, ascension_threshold=1),
+    # Death-interrupt / terminal moves -- see EnemyMoveset.on_death_move /
+    # terminal_moves in sts2_state.py. Never reached via normal transitions.
+    ("WATERFALL_GIANT_ABOUT_TO_BLOW", False): Move("WATERFALL_GIANT_ABOUT_TO_BLOW", hits=0, dmg=0, target=TargetType.NONE, max_consecutive=1),
+    ("WATERFALL_GIANT_EXPLODE", False): Move("WATERFALL_GIANT_EXPLODE", hits=0, dmg=0, target=TargetType.NONE, max_consecutive=1),
+
+    # Two-Tailed Rat: see TWO_TAILED_RAT's custom_selector in sts2_state.py
+    # for how these four combine -- this isn't a plain transition graph.
+    ("TWO_TAILED_RAT_SCRATCH", False): Move("TWO_TAILED_RAT_SCRATCH", hits=1, dmg=8, target=TargetType.ANY_PLAYER, max_consecutive=1),
+    ("TWO_TAILED_RAT_SCRATCH", True): Move("TWO_TAILED_RAT_SCRATCH", is_upgraded=True, hits=1, dmg=9, target=TargetType.ANY_PLAYER, max_consecutive=1, ascension_threshold=1),
+    ("TWO_TAILED_RAT_DISEASE_BITE", False): Move("TWO_TAILED_RAT_DISEASE_BITE", hits=1, dmg=6, target=TargetType.ANY_PLAYER, max_consecutive=1),
+    ("TWO_TAILED_RAT_DISEASE_BITE", True): Move("TWO_TAILED_RAT_DISEASE_BITE", is_upgraded=True, hits=1, dmg=7, target=TargetType.ANY_PLAYER, max_consecutive=1, ascension_threshold=1),
+    ("TWO_TAILED_RAT_SCREECH", False): Move(
+        "TWO_TAILED_RAT_SCREECH", hits=0, dmg=0, target=TargetType.ANY_PLAYER, max_consecutive=1, cooldown_turns=3,
+        effects=(("apply_status", {"status_id": "FRAIL", "amount": 1, "target": "player"}),),
+    ),
+    # Screech's Asc. column showed the same "Apply 1 Frail" with no numeric
+    # change -- no separate is_upgraded=True entry needed unless a higher
+    # ascension turns out to change the Frail amount (verify if it matters
+    # to you; the base entry covers both tiers as scraped).
+    ("TWO_TAILED_RAT_CALL_FOR_BACKUP", False): Move(
+        "TWO_TAILED_RAT_CALL_FOR_BACKUP", hits=0, dmg=0, target=TargetType.NONE, max_uses_per_combat=1,
+        effects=(("summon_pack_member", {"enemy_base_id": "TWO_TAILED_RAT"}),),
+    ),
+}
+
+
+def get_move(move_id: str, is_upgraded: bool = False) -> Move:
+    """Card lookup -- pass the real is_upgraded flag straight from the live
+    hand (CardInstance.is_upgraded)."""
+    if (move_id, is_upgraded) in MOVES_DB:
+        return MOVES_DB[(move_id, is_upgraded)]
+    return MOVES_DB[(move_id, False)]  # fall back to base tier if only one variant is authored
+
+
+def get_enemy_move(move_id: str, ascension: int = 0) -> Move:
+    """Enemy move lookup -- pass the run's current ascension, NOT
+    is_upgraded directly. Resolves whether the ascension-boosted variant
+    (ascension_threshold) applies yet."""
+    boosted = MOVES_DB.get((move_id, True))
+    if boosted is not None and boosted.ascension_threshold is not None and ascension >= boosted.ascension_threshold:
+        return boosted
+    return MOVES_DB[(move_id, False)]
+
+
+# ---------------------------------------------------------------------------
+# Load scraper-generated move definitions (from merge_movesets.py) on top of
+# the hand-authored ones above. Hand-authored entries always win.
+# ---------------------------------------------------------------------------
+
+def load_generated_moves(path: str = "enemy_moves_generated.json") -> dict:
+    import json as _json
+    from pathlib import Path as _Path
+
+    p = _Path(path)
+    if not p.exists():
+        return {}
+
+    with open(p) as f:
+        raw = _json.load(f)
+
+    loaded = {}
+    for entry in raw:
+        key = (entry["id"], entry["is_upgraded"])
+        loaded[key] = Move(
+            id=entry["id"],
+            is_upgraded=entry["is_upgraded"],
+            hits=entry["hits"],
+            dmg=entry["dmg"],
+            target=TargetType(entry["target"]),
+            card_type=entry.get("card_type"),
+            keywords=tuple(entry.get("keywords", ())),
+            effects=tuple(tuple(e) for e in entry.get("effects", ())),
+            max_consecutive=entry.get("max_consecutive"),
+            ascension_threshold=entry.get("ascension_threshold"),
+        )
+    return loaded
+
+
+for _key, _move in load_generated_moves().items():
+    MOVES_DB.setdefault(_key, _move)
